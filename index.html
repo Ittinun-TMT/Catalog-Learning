@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>แคตตาล็อกนิวทริไลท์</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap">
+<style>
+/* Layout: frosted-glass catalog over drifting navy/sky/leaf light; search-led recommendations on top, catalog grid left, sticky intake planner right */
+:root{
+  --bg:#FFFFFF; --bg2:#FFFFFF;
+  --ink:#0B1D36; --muted:#55657C; --faint:#7D8AA0;
+  --navy:#002D5C; --sky:#2878BE; --leaf:#4A8A2A; --gold:#B7862B;
+  --btn:#002D5C; --btn-fg:#FFFFFF;
+  --glass:rgba(255,255,255,.62); --glass-strong:rgba(255,255,255,.85);
+  --glass-line:rgba(0,45,92,.10); --line:rgba(11,29,54,.10);
+  --shadow:0 10px 30px -14px rgba(0,45,92,.22);
+  --blob1:#BFDBF5; --blob2:#D6EDC8; --blob3:#9DB9DD;
+  --chip:rgba(0,45,92,.07); --chip-on:#002D5C; --chip-on-fg:#fff;
+  --warn:#9A5B00; --warn-bg:rgba(183,134,43,.14);
+  --font:"Kanit",system-ui,-apple-system,"Segoe UI",Tahoma,sans-serif;
+}
+:root{color-scheme:light}
+
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{background:linear-gradient(160deg,var(--bg),var(--bg2));color:var(--ink);font-family:var(--font);font-weight:300;font-size:15px;line-height:1.6;min-height:100vh;overflow-x:hidden}
+.ambient{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.ambient span{position:absolute;border-radius:50%;filter:blur(80px);opacity:.45;animation:drift 22s ease-in-out infinite alternate}
+.ambient .a{width:46vmax;height:46vmax;background:var(--blob1);top:-14vmax;left:-10vmax}
+.ambient .b{width:34vmax;height:34vmax;background:var(--blob2);bottom:-10vmax;right:-6vmax;animation-duration:28s}
+.ambient .c{width:28vmax;height:28vmax;background:var(--blob3);top:38%;left:48%;opacity:.28;animation-duration:34s}
+@keyframes drift{to{transform:translate(4vmax,3vmax) scale(1.08)}}
+
+.wrap{position:relative;z-index:1;max-width:1320px;margin:0 auto;padding-block:28px 64px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:22px}
+.glass{background:var(--glass);border:1px solid var(--glass-line);backdrop-filter:blur(18px) saturate(1.4);-webkit-backdrop-filter:blur(18px) saturate(1.4);border-radius:22px;box-shadow:var(--shadow)}
+
+header.top{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px}
+.brand{display:flex;flex-direction:column;gap:2px;min-width:0}
+.eyebrow{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--leaf);font-weight:500}
+h1{margin:0;font-size:clamp(28px,4.4vw,44px);font-weight:600;line-height:1.15;color:var(--navy);text-wrap:balance}
+.brand p{margin:4px 0 0;color:var(--muted);max-width:60ch}
+.mode{display:flex;padding:4px;gap:4px;border-radius:999px}
+.mode button{border:0;background:transparent;color:var(--muted);font:inherit;font-weight:500;font-size:14px;padding:8px 16px;border-radius:999px;cursor:pointer;transition:background .25s,color .25s}
+.mode button[aria-pressed="true"]{background:var(--btn);color:var(--btn-fg)}
+
+/* search */
+.search{padding:22px;display:flex;flex-direction:column;gap:14px}
+.search label{font-weight:500;font-size:17px;color:var(--navy)}
+.field{position:relative}
+.field svg{position:absolute;left:16px;top:50%;transform:translateY(-50%);color:var(--faint)}
+#q{width:100%;font:inherit;font-size:17px;font-weight:400;color:var(--ink);background:var(--glass-strong);border:1px solid var(--line);border-radius:16px;padding:14px 16px 14px 48px;outline:none;transition:border-color .2s,box-shadow .2s}
+#q::placeholder{color:var(--faint)}
+#q:focus{border-color:var(--sky);box-shadow:0 0 0 4px color-mix(in srgb,var(--sky) 22%,transparent)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1px solid var(--line);background:var(--chip);color:var(--ink);font:inherit;font-size:14px;padding:6px 14px;border-radius:999px;cursor:pointer;transition:transform .2s,background .2s,color .2s}
+.chip:hover{transform:translateY(-1px)}
+.chip[aria-pressed="true"]{background:var(--chip-on);color:var(--chip-on-fg);border-color:transparent}
+.chip-label{font-size:13px;color:var(--muted);align-self:center;margin-right:2px}
+
+.rec{padding:20px 22px;display:flex;flex-direction:column;gap:14px;animation:rise .45s ease both}
+.rec-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px}
+.rec h2{margin:0;font-size:19px;font-weight:500;color:var(--navy)}
+.rec h2 em{font-style:normal;color:var(--leaf)}
+.rec-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
+.rec-item{display:flex;gap:12px;align-items:flex-start;padding:12px;border-radius:16px;background:var(--glass-strong);border:1px solid var(--line);min-width:0}
+.rec-item b{font-weight:500;display:block}
+.rec-item small{color:var(--muted);display:block;line-height:1.45}
+.rec-item .rp{color:var(--sky);font-weight:500;font-variant-numeric:tabular-nums;font-size:14px}
+.rank{flex:none;width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font-weight:600;font-size:14px;background:var(--btn);color:var(--btn-fg)}
+
+/* main grid */
+.main{display:grid;grid-template-columns:minmax(0,1fr);gap:22px;align-items:start}
+@media (min-width:1100px){.main{grid-template-columns:minmax(0,1fr) 380px}}
+.toolbar{display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between;align-items:center}
+.toolbar .count{color:var(--muted);font-size:14px}
+select{font:inherit;font-size:14px;color:var(--ink);background:var(--glass-strong);border:1px solid var(--line);border-radius:12px;padding:7px 12px}
+.cat-chips{display:flex;flex-wrap:wrap;gap:8px}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(285px,1fr));gap:16px;margin-top:14px}
+.card{padding:18px;display:flex;flex-direction:column;gap:12px;transition:transform .3s cubic-bezier(.2,.8,.2,1),box-shadow .3s;animation:rise .5s cubic-bezier(.2,.8,.2,1) both;min-width:0}
+.card:hover{transform:translateY(-4px)}
+.card.hit{box-shadow:0 0 0 2px var(--leaf),var(--shadow)}
+@keyframes rise{from{transform:translateY(10px);opacity:.4}to{transform:none;opacity:1}}
+.c-top{display:flex;gap:14px;align-items:flex-start}
+.icon{flex:none;width:54px;height:54px;border-radius:16px;display:grid;place-items:center;background:linear-gradient(140deg,color-mix(in srgb,var(--sky) 26%,transparent),color-mix(in srgb,var(--leaf) 22%,transparent));border:1px solid var(--glass-line);color:var(--navy)}
+.c-title{min-width:0}
+.cat{font-size:12px;letter-spacing:.06em;color:var(--leaf);font-weight:500}
+.card h3{margin:0;font-size:18px;font-weight:500;line-height:1.3;color:var(--ink)}
+.en{font-size:13px;color:var(--faint)}
+.pack{font-size:13px;color:var(--muted)}
+.price-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:12px;border-radius:16px;background:var(--glass-strong);border:1px solid var(--line)}
+.price-row .lbl{font-size:12px;color:var(--muted);display:block}
+.price-row .val{font-size:17px;font-weight:500;font-variant-numeric:tabular-nums}
+.per-day{grid-column:1/-1;display:flex;align-items:baseline;justify-content:space-between;gap:8px;border-top:1px dashed var(--line);padding-top:8px}
+.per-day .big{font-size:26px;font-weight:600;color:var(--sky);font-variant-numeric:tabular-nums;line-height:1}
+.per-day .big small{font-size:14px;font-weight:400;color:var(--muted)}
+.days{font-size:13px;color:var(--muted);text-align:right}
+.dose{font-size:13.5px;color:var(--muted);display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.dose strong{color:var(--ink);font-weight:500}
+.flag{font-size:11.5px;padding:1px 8px;border-radius:999px;background:var(--warn-bg);color:var(--warn);white-space:nowrap}
+.props{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:6px;font-size:14px}
+.props li{display:flex;gap:8px;align-items:flex-start}
+.props li::before{content:"";flex:none;width:7px;height:7px;margin-top:8px;border-radius:50%;background:var(--leaf)}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tag{font-size:12px;padding:2px 9px;border-radius:999px;background:var(--chip);color:var(--muted)}
+.add{margin-top:auto;border:0;font:inherit;font-weight:500;font-size:15px;padding:10px 14px;border-radius:14px;background:var(--btn);color:var(--btn-fg);cursor:pointer;transition:transform .15s,filter .2s;display:flex;align-items:center;justify-content:center;gap:8px}
+.add:hover{filter:brightness(1.1)}
+.add:active{transform:scale(.98)}
+.add.in{background:transparent;color:var(--leaf);border:1px solid var(--leaf)}
+.empty{padding:28px;text-align:center;color:var(--muted)}
+
+/* planner */
+.planner{padding:20px;display:flex;flex-direction:column;gap:14px}
+@media (min-width:1100px){.planner{position:sticky;top:calc(16px + env(safe-area-inset-top,0px));max-height:calc(100vh - 32px);overflow:auto}}
+.planner h2{margin:0;font-size:21px;font-weight:500;color:var(--navy)}
+.planner .sub{margin:-8px 0 0;font-size:13.5px;color:var(--muted)}
+.days-ctl{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.days-ctl label{font-size:14px;color:var(--muted)}
+.num{width:76px;font:inherit;font-size:15px;color:var(--ink);background:var(--glass-strong);border:1px solid var(--line);border-radius:10px;padding:6px 8px;text-align:center;font-variant-numeric:tabular-nums}
+.num:focus,select:focus,.chip:focus-visible,.add:focus-visible,.mode button:focus-visible,.x:focus-visible,.ghost:focus-visible{outline:2px solid var(--sky);outline-offset:2px}
+.rows{display:flex;flex-direction:column;gap:10px}
+.row{padding:12px;border-radius:16px;background:var(--glass-strong);border:1px solid var(--line);display:flex;flex-direction:column;gap:8px;animation:rise .35s ease both}
+.row-h{display:flex;justify-content:space-between;gap:8px;align-items:flex-start}
+.row-h b{font-weight:500;line-height:1.35}
+.x{border:0;background:var(--chip);color:var(--muted);width:28px;height:28px;border-radius:50%;cursor:pointer;flex:none;font:inherit;font-size:16px;line-height:1}
+.row-ctl{display:flex;flex-wrap:wrap;align-items:center;gap:8px;font-size:13.5px;color:var(--muted)}
+.row-ctl .num{width:64px}
+.row-out{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;font-size:12.5px;color:var(--muted)}
+.row-out span b{display:block;font-size:15px;color:var(--ink);font-weight:500;font-variant-numeric:tabular-nums}
+.sum{padding:14px;border-radius:18px;background:linear-gradient(140deg,color-mix(in srgb,var(--sky) 18%,var(--glass-strong)),color-mix(in srgb,var(--leaf) 14%,var(--glass-strong)));border:1px solid var(--glass-line);display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.sum div span{display:block;font-size:12.5px;color:var(--muted)}
+.sum div b{font-size:20px;font-weight:600;font-variant-numeric:tabular-nums;color:var(--ink)}
+.sum .hero{grid-column:1/-1}
+.sum .hero b{font-size:32px;color:var(--sky)}
+.ghost{border:1px solid var(--line);background:transparent;color:var(--muted);font:inherit;font-size:13.5px;padding:7px 12px;border-radius:12px;cursor:pointer}
+.plan-empty{padding:16px;text-align:center;color:var(--muted);font-size:14px;border:1px dashed var(--line);border-radius:16px}
+.note{font-size:12.5px;color:var(--faint);line-height:1.5}
+
+.fab{position:fixed;right:max(16px,env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:5;border:0;font:inherit;font-weight:500;padding:12px 18px;border-radius:999px;background:var(--btn);color:var(--btn-fg);box-shadow:var(--shadow);cursor:pointer;display:flex;gap:8px;align-items:center}
+.fab .n{background:var(--btn-fg);color:var(--btn);border-radius:999px;min-width:22px;height:22px;display:grid;place-items:center;font-size:13px;padding:0 6px}
+@media (min-width:1100px){.fab{display:none}}
+
+footer{padding:18px 22px;font-size:13px;color:var(--muted);display:flex;flex-direction:column;gap:8px}
+footer a{color:var(--sky)}
+footer ul{margin:0;padding-left:18px;columns:2 260px}
+@media (max-width:480px){.price-row .val{font-size:16px}.per-day .big{font-size:24px}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<div class="ambient" aria-hidden="true"><span class="a"></span><span class="b"></span><span class="c"></span></div>
+
+<div class="wrap">
+  <header class="top">
+    <div class="brand">
+      <span class="eyebrow">Nutrilite · หมวดสุขภาพ</span>
+      <h1>แคตตาล็อกนิวทริไลท์</h1>
+      <p>ราคา คุณสมบัติ และค่าใช้จ่ายเฉลี่ยต่อวันของผลิตภัณฑ์เสริมอาหารนิวทริไลท์ พร้อมเครื่องคำนวณปริมาณการกิน</p>
+    </div>
+    <div class="mode glass" role="group" aria-label="เลือกราคาที่ใช้คำนวณ">
+      <button id="mode-member" aria-pressed="true">ราคาสมาชิก</button>
+      <button id="mode-retail" aria-pressed="false">ราคาขายปลีก</button>
+    </div>
+  </header>
+
+  <section class="search glass" aria-label="ค้นหาและรับคำแนะนำ">
+    <label for="q">อยากดูแลสุขภาพด้านไหน?</label>
+    <div class="field">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input id="q" type="search" autocomplete="off" placeholder="เช่น กระดูก, ผิว, ภูมิคุ้มกัน, ขับถ่าย, โปรตีน, ผู้สูงอายุ">
+    </div>
+    <div class="chips" id="need-chips"><span class="chip-label">ค้นหายอดนิยม</span></div>
+  </section>
+
+  <section class="rec glass" id="rec" hidden aria-live="polite"></section>
+
+  <div class="main">
+    <section aria-label="รายการผลิตภัณฑ์">
+      <div class="toolbar">
+        <div class="cat-chips" id="cat-chips"></div>
+        <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+          <span class="count" id="count"></span>
+          <label class="count" for="sort">เรียง</label>
+          <select id="sort">
+            <option value="perday">ต่อวัน ถูก → แพง</option>
+            <option value="perday-desc">ต่อวัน แพง → ถูก</option>
+            <option value="price">ราคาต่อชิ้น ถูก → แพง</option>
+            <option value="name">ชื่อ ก → ฮ</option>
+          </select>
+        </div>
+      </div>
+      <div class="grid" id="grid"></div>
+    </section>
+
+    <aside class="planner glass" id="planner" aria-label="เครื่องคำนวณปริมาณการกิน">
+      <h2>แผนการกินของฉัน</h2>
+      <p class="sub">ปรับจำนวนต่อวันและระยะเวลา ระบบจะคำนวณจำนวนที่ต้องกิน จำนวนแพ็กที่ต้องซื้อ และค่าใช้จ่าย</p>
+      <div class="days-ctl">
+        <label for="days">ระยะเวลา</label>
+        <input class="num" id="days" type="number" min="1" max="730" value="30" inputmode="numeric">
+        <span class="count">วัน</span>
+        <button class="chip" data-days="30">1 เดือน</button>
+        <button class="chip" data-days="90">3 เดือน</button>
+        <button class="chip" data-days="180">6 เดือน</button>
+      </div>
+      <div class="rows" id="rows"></div>
+      <div class="sum" id="sum"></div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button class="ghost" id="clear">ล้างแผน</button>
+        <button class="ghost" id="sample">โหลดแผนตัวอย่าง</button>
+      </div>
+      <p class="note">“เฉลี่ย” คิดตามจำนวนที่กินจริง ส่วน “ต้องซื้อ” คิดเป็นแพ็กเต็ม ปริมาณที่มีป้าย “ตรวจฉลาก” เป็นค่าตั้งต้นโดยประมาณ ควรยึดตามฉลากบนบรรจุภัณฑ์</p>
+    </aside>
+  </div>
+
+  <footer class="glass">
+    <strong style="color:var(--ink);font-weight:500">ที่มาของข้อมูลและข้อควรทราบ</strong>
+    <span>ราคาสมาชิกรวบรวมจากหน้าโปรโมชั่นและบทความบน amway.co.th (ปี 2567–2569) ราคาอาจเปลี่ยนแปลงได้ ควรตรวจสอบที่แอมเวย์ ช็อป หรือ 0-2725-8000 ก่อนสั่งซื้อ ราคาขายปลีกที่มีเครื่องหมาย ≈ คำนวณจากราคาสมาชิก +10% ตามสัดส่วนที่แอมเวย์ใช้กับสินค้าอื่น หน้านี้ไม่ใช่เว็บไซต์ทางการของแอมเวย์</span>
+    <span>ผลิตภัณฑ์เสริมอาหารไม่มีผลในการป้องกันหรือรักษาโรค เด็กและสตรีมีครรภ์ไม่ควรรับประทาน ผู้ที่ใช้ยาประจำควรปรึกษาแพทย์หรือเภสัชกร คำแนะนำจากการค้นหาเป็นข้อมูลทั่วไป ไม่ใช่คำแนะนำทางการแพทย์</span>
+    <ul>
+      <li><a href="https://amway.co.th/promotions/feb-2026-doublex" target="_blank" rel="noopener">ดับเบิ้ล เอ็กซ์ (ก.พ. 69)</a></li>
+      <li><a href="https://amway.co.th/promotions/mar-2026-calmagd" target="_blank" rel="noopener">แคล แมก ดี (มี.ค. 69)</a></li>
+      <li><a href="https://amway.co.th/promotions/oct-2026-vitdk" target="_blank" rel="noopener">วิตามินดี3 + เค2 (ต.ค. 69)</a></li>
+      <li><a href="https://amway.co.th/en/product/nutrilite-vitamin-d3-k2/341899" target="_blank" rel="noopener">วิตามินดี3 + เค2 หน้าสินค้า</a></li>
+      <li><a href="https://amway.co.th/product/109745TH" target="_blank" rel="noopener">ไบโอซี พลัส หน้าสินค้า</a></li>
+      <li><a href="https://www.amway.co.th/pro-may-2025-woman" target="_blank" rel="noopener">คอลลาเจน (พ.ค. 68)</a></li>
+      <li><a href="https://achieve.amway.co.th/th/business-articles/nutrilite-collagen" target="_blank" rel="noopener">ส่วนประกอบคอลลาเจน</a></li>
+      <li><a href="https://www.thairath.co.th/lifestyle/health-and-beauty/2699731" target="_blank" rel="noopener">ออล แพลนท์ โปรตีน (ไทยรัฐ)</a></li>
+      <li><a href="https://www.achieve.amway.co.th/th/business-articles/amway-nutrilite-all-plant-protein-plus" target="_blank" rel="noopener">ออล แพลนท์ โปรตีน พลัส</a></li>
+      <li><a href="https://amway.co.th/articles/nutrilite-begin-and-fiber-powder-plus" target="_blank" rel="noopener">บีกิน และไฟเบอร์ พาวเดอร์ พลัส</a></li>
+      <li><a href="https://amway.co.th/promotions/sep-2025-garlic" target="_blank" rel="noopener">การ์ลิค (ก.ย. 68)</a></li>
+      <li><a href="https://support.amway.co.th/hc/th/articles/22739730496660" target="_blank" rel="noopener">กลูโคซามีน (ศูนย์ช่วยเหลือ)</a></li>
+    </ul>
+  </footer>
+</div>
+
+<button class="fab" id="fab" aria-label="ไปที่แผนการกิน">แผนของฉัน <span class="n" id="fab-n">0</span></button>
+
+<script>
+const ICONS={
+  tablet:'<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><rect x="2.5" y="8" width="19" height="8" rx="4" transform="rotate(-35 12 12)"/><path d="m9.2 7.9 5.6 8.2"/></svg>',
+  softgel:'<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><ellipse cx="12" cy="12" rx="5.5" ry="8.5" transform="rotate(30 12 12)"/><path d="M9.5 9.5c.8-1.4 2-2.3 3.2-2.6" stroke-linecap="round"/></svg>',
+  sachet:'<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M6 3h12v18H6z"/><path d="M6 6.5h12M6 17.5h12" stroke-dasharray="1.5 1.5"/><path d="M10 11.5h4"/></svg>',
+  can:'<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><ellipse cx="12" cy="5.5" rx="6" ry="2.2"/><path d="M6 5.5v13c0 1.2 2.7 2.2 6 2.2s6-1 6-2.2v-13"/><path d="M6 10h12M6 14.5h12" opacity=".5"/></svg>'
+};
+const CATS={vitamin:'วิตามินและแร่ธาตุ',bone:'กระดูกและข้อ',beauty:'ผิวพรรณ',protein:'โปรตีน',digest:'ระบบขับถ่าย',herbal:'สารสกัดธรรมชาติ'};
+
+// doseFlag: 'label' = from Amway page/label; 'check' = approximate default, verify with label; 'user' = set by user (medicine)
+const P=[
+ {id:'doublex',name:'ดับเบิ้ล เอ็กซ์ ไฟโตเบลนด์',en:'Double X Phyto Blend',cat:'vitamin',form:'tablet',pack:'ชนิดเติม 31 วัน · 186 เม็ด',units:186,unit:'เม็ด',dose:6,doseFlag:'label',
+  doseText:'วิตามินรวม เกลือแร่รวม สารสกัดจากพืช อย่างละ 1 เม็ด วันละ 2 ครั้ง',member:2364,retail:2600,retailApprox:false,
+  props:['วิตามินรวม เกลือแร่รวม และสารสกัดจากพืชครบใน 1 ชุด แยก 3 เม็ดต่อมื้อ','สารสกัดจากพืชหลายชนิด เช่น ขมิ้นชัน โรสแมรี ส้ม เกรปฟรุต องุ่น บลูเบอร์รี อะเซโรลา ผักโขม อัลฟัลฟา','บรรจุซองสุญญากาศกันอากาศ ช่วยเก็บรักษาสารอาหาร','ไม่ใช้สี กลิ่นรส หรือวัตถุกันเสียสังเคราะห์'],
+  tags:['วิตามินรวม','พื้นฐานประจำวัน']},
+ {id:'begin',name:'นิวทริไลท์ บีกิน',en:'Nutrilite Begin',cat:'vitamin',form:'sachet',pack:'30 ซอง',units:30,unit:'ซอง',dose:1,doseFlag:'label',
+  doseText:'วันละ 1 ซอง',member:2150,retail:2365,retailApprox:false,
+  props:['ส่วนผสมจากธรรมชาติ 30 ชนิดในซองเดียว','ออกแบบเป็นจุดเริ่มต้นดูแลตัวเองทุกเช้า','สินค้าใหม่ เริ่มจำหน่าย 1 ก.ย. 2569'],
+  tags:['สินค้าใหม่','เริ่มต้นดูแลตัวเอง']},
+ {id:'calmagd',name:'แคล แมก ดี',en:'Cal Mag D',cat:'bone',form:'tablet',pack:'180 เม็ด',units:180,unit:'เม็ด',dose:2,doseFlag:'check',
+  doseText:'วันละ 2 เม็ด พร้อมอาหาร',member:1077,
+  props:['แคลเซียม แมกนีเซียม และวิตามินดีในเม็ดเดียว','เสริมเกลือแร่ สังกะสี ทองแดง แมงกานีส','มีสารสกัดอัลฟัลฟาจากฟาร์มเอล เพทาคาลของนิวทริไลท์ ประเทศเม็กซิโก','วิตามินดีช่วยการดูดซึมแคลเซียม'],
+  tags:['กระดูก','แคลเซียม']},
+ {id:'d3k2',name:'วิตามินดี3 + เค2',en:'Vitamin D3 + K2',cat:'bone',form:'softgel',pack:'30 ซอฟต์เจล',units:30,unit:'แคปซูล',dose:1,doseFlag:'label',
+  doseText:'วันละ 1 แคปซูล',member:990,retail:1090,retailApprox:false,
+  props:['วิตามินดี3 400 IU และวิตามินเค2 50 ไมโครกรัมต่อแคปซูล','วิตามินดีและเคมีส่วนช่วยคงสภาพปกติของกระดูก','วิตามินดีช่วยคงระดับแคลเซียมในเลือดและการทำงานปกติของภูมิคุ้มกัน','ผู้ที่ใช้ยาต้านการแข็งตัวของเลือดควรปรึกษาแพทย์ก่อน (วิตามินเคเกี่ยวกับการแข็งตัวของเลือด)'],
+  tags:['สินค้าใหม่','กระดูก','ภูมิคุ้มกัน']},
+ {id:'glucosamine',name:'กลูโคซามีน',en:'Glucosamine',cat:'bone',form:'softgel',pack:'120 แคปซูล',units:120,unit:'แคปซูล',dose:null,doseFlag:'user',
+  doseText:'ผลิตภัณฑ์ยา ใช้ตามฉลากหรือคำแนะนำของเภสัชกร',member:1515,
+  props:['ขึ้นทะเบียนเป็นผลิตภัณฑ์ยา ไม่ใช่อาหารเสริม','มีขนาดเดียว คือขวด 120 แคปซูล','ราคาในรายการคิดต่อแคปซูล กรอกจำนวนต่อวันตามฉลากในแผนการกิน'],
+  tags:['ข้อ','ยา']},
+ {id:'bioc',name:'ไบโอซี พลัส',en:'Bio C Plus',cat:'vitamin',form:'tablet',pack:'60 เม็ด',units:60,unit:'เม็ด',dose:1,doseFlag:'check',
+  doseText:'วันละ 1 เม็ด',member:990,retail:1090,retailApprox:false,
+  props:['วิตามินซีจากอะเซโรลา เชอร์รี','วิตามินซีมีส่วนช่วยปกป้องเซลล์จากอนุมูลอิสระ','ช่วยให้หลอดเลือดแข็งแรง','ช่วยในการสร้างคอลลาเจนเพื่อการทำงานปกติของผิวหนัง'],
+  tags:['วิตามินซี','ภูมิคุ้มกัน','ผิว']},
+ {id:'collagen',name:'คอลลาเจน',en:'Collagen',cat:'beauty',form:'sachet',pack:'30 ซอง',units:30,unit:'ซอง',dose:1,doseFlag:'label',
+  doseText:'วันละ 1 ซอง',member:1650,
+  props:['ไฮโดรไลซ์คอลลาเจนจากปลาทะเล 1,620 มก. ต่อซอง','ผงเปปไทด์จากถั่วเหลือง 1,207.5 มก. ต่อซอง','ชนิดผงชงดื่ม พกพาง่าย'],
+  tags:['ผิว','ความงาม']},
+ {id:'allplant',name:'ออล แพลนท์ โปรตีน',en:'All Plant Protein 450 g',cat:'protein',form:'can',pack:'กระป๋อง 450 กรัม · ประมาณ 45 หน่วยบริโภค',units:45,unit:'หน่วยบริโภค',dose:1,doseFlag:'check',
+  doseText:'วันละ 1 หน่วยบริโภค (ประมาณ 10 กรัม)',member:1290,
+  props:['โปรตีนสกัดจากพืช 3 ชนิด: ถั่วเหลือง ข้าวสาลี ถั่วลันเตา','ให้กรดอะมิโนจำเป็นครบ 9 ชนิด','โปรตีน 86.7 กรัมต่อผง 100 กรัม','ปราศจากโคเลสเตอรอล ผสมน้ำหรืออาหารได้'],
+  tags:['โปรตีนพืช','กล้ามเนื้อ']},
+ {id:'allplantplus',name:'ออล แพลนท์ โปรตีน พลัส',en:'All Plant Protein Plus 450 g',cat:'protein',form:'can',pack:'กระป๋อง 450 กรัม · ประมาณ 45 หน่วยบริโภค',units:45,unit:'หน่วยบริโภค',dose:1,doseFlag:'check',
+  doseText:'วันละ 2 ช้อนตวง ผสมน้ำ 200 มล.',member:1500,retail:1650,retailApprox:false,
+  props:['โปรตีนจากถั่วเหลือง ข้าวสาลี และถั่วลันเตา','เพิ่มดูอัลเปปไทด์และผงอโลเวรา','ไม่มีน้ำตาลและแลคโตส','ให้โปรตีนประมาณ 8 กรัมต่อหน่วยบริโภค'],
+  tags:['โปรตีนพืช','ไม่มีแลคโตส']},
+ {id:'fiber',name:'ไฟเบอร์ พาวเดอร์ พลัส',en:'Fiber Powder Plus',cat:'digest',form:'sachet',pack:'30 ซอง',units:30,unit:'ซอง',dose:2,doseFlag:'label',
+  doseText:'วันละ 2 ซอง อย่างสม่ำเสมอ',member:1700,retail:1870,retailApprox:false,
+  props:['ใยอาหารจากพืช: มันสำปะหลังและกัมอะราบิก','ใยอาหารช่วยเพิ่มกากในระบบทางเดินอาหาร','ช่วยกระตุ้นการขับถ่าย','สูตรใหม่ ปริมาณมากกว่าเดิม (ส.ค. 2569)'],
+  tags:['ขับถ่าย','ใยอาหาร']},
+ {id:'garlic',name:'การ์ลิค',en:'Garlic',cat:'herbal',form:'tablet',pack:'150 เม็ด',units:150,unit:'เม็ด',dose:1,doseFlag:'check',
+  doseText:'วันละ 1 เม็ด',member:1195,
+  props:['กระเทียมอัดเม็ด มีสารอัลลิซินจากกระเทียม','เม็ดเคลือบละลายในลำไส้ ช่วยลดกลิ่นกระเทียม','บรรจุ 150 เม็ด กินได้นาน'],
+  tags:['กระเทียม','หัวใจ']}
+];
+P.forEach(p=>{if(p.retail==null){p.retail=Math.round(p.member*1.1);p.retailApprox=true}});
+const byId=Object.fromEntries(P.map(p=>[p.id,p]));
+
+const NEEDS=[
+ {label:'กระดูก',words:['กระดูก','กระดูกพรุน','แคลเซียม','bone','calcium','แข็งแรง','ฟัน'],picks:[['calmagd','แคลเซียม แมกนีเซียม วิตามินดีในเม็ดเดียว ราคาต่อวันต่ำ'],['d3k2','วิตามินดีและเคช่วยคงสภาพปกติของกระดูก'],['allplant','โปรตีนพืช เสริมจากอาหารหลัก']]},
+ {label:'ข้อเข่า',words:['ข้อ','เข่า','ข้อเข่า','joint','ปวดข้อ','กลูโคซามีน'],picks:[['glucosamine','ผลิตภัณฑ์ยาสำหรับข้อ ใช้ตามคำแนะนำเภสัชกร'],['calmagd','ดูแลกระดูกควบคู่'],['collagen','คอลลาเจนจากปลาทะเล']]},
+ {label:'ภูมิคุ้มกัน',words:['ภูมิ','ภูมิคุ้มกัน','หวัด','ป่วยบ่อย','immune','วิตามินซี','vitamin c'],picks:[['bioc','วิตามินซีจากอะเซโรลา เชอร์รี'],['d3k2','วิตามินดีช่วยการทำงานปกติของภูมิคุ้มกัน'],['doublex','วิตามินและแร่ธาตุรวมเป็นพื้นฐาน']]},
+ {label:'ผิวสวย',words:['ผิว','สวย','ความงาม','ริ้วรอย','คอลลาเจน','skin','collagen','ผม','เล็บ'],picks:[['collagen','ไฮโดรไลซ์คอลลาเจน 1,620 มก. ต่อซอง'],['bioc','วิตามินซีช่วยสร้างคอลลาเจนเพื่อผิว']]},
+ {label:'ขับถ่าย',words:['ขับถ่าย','ท้องผูก','ไฟเบอร์','ใยอาหาร','ลำไส้','fiber','ถ่าย'],picks:[['fiber','ใยอาหารช่วยเพิ่มกากและกระตุ้นการขับถ่าย'],['begin','ส่วนผสมธรรมชาติ 30 ชนิด เริ่มต้นทุกเช้า']]},
+ {label:'โปรตีน',words:['โปรตีน','กล้าม','ออกกำลัง','ฟิตเนส','ลดน้ำหนัก','มังสวิรัติ','วีแกน','protein','gym','เจ'],picks:[['allplant','โปรตีนพืช 3 ชนิด กรดอะมิโนจำเป็นครบ'],['allplantplus','ไม่มีน้ำตาลและแลคโตส เพิ่มดูอัลเปปไทด์']]},
+ {label:'อ่อนเพลีย',words:['อ่อนเพลีย','เหนื่อย','พักผ่อนน้อย','กินผักน้อย','วิตามินรวม','พื้นฐาน','ทำงานหนัก','multivitamin','วิตามิน'],picks:[['doublex','วิตามินรวม เกลือแร่รวม และสารสกัดจากพืช'],['begin','ซองเดียวต่อวัน ส่วนผสม 30 ชนิด'],['bioc','วิตามินซีเสริม']]},
+ {label:'หัวใจ',words:['หัวใจ','หลอดเลือด','กระเทียม','garlic','heart','ไขมัน'],picks:[['garlic','กระเทียมที่มีอัลลิซิน เม็ดเคลือบลดกลิ่น'],['bioc','วิตามินซีช่วยให้หลอดเลือดแข็งแรง']]},
+ {label:'ผู้สูงอายุ',words:['ผู้สูงอายุ','สูงวัย','คนแก่','พ่อแม่','วัยทอง','อายุ','elderly'],picks:[['calmagd','ดูแลกระดูกด้วยแคลเซียมและวิตามินดี'],['d3k2','วิตามินดีและเคสำหรับกระดูก'],['allplant','โปรตีนย่อยง่ายจากพืช'],['doublex','วิตามินรวมพื้นฐาน']]}
+];
+
+const $=s=>document.querySelector(s);
+const fmt=(n,d=0)=>n.toLocaleString('th-TH',{minimumFractionDigits:d,maximumFractionDigits:d});
+const store={get(k,f){try{const v=localStorage.getItem(k);return v?JSON.parse(v):f}catch(e){return f}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+
+let mode=store.get('nt-mode','member');
+let cat='all', sort='perday', query='', activeNeed=null;
+const SAMPLE={days:30,items:[{id:'doublex',dose:6},{id:'calmagd',dose:2},{id:'bioc',dose:1}]};
+let plan=store.get('nt-plan',SAMPLE);
+
+const price=p=>mode==='member'?p.member:p.retail;
+const unitCost=p=>price(p)/p.units;
+const perDay=p=>p.dose?unitCost(p)*p.dose:unitCost(p);
+
+/* ---------- need chips & categories ---------- */
+const needWrap=$('#need-chips');
+NEEDS.forEach(n=>{const b=document.createElement('button');b.className='chip';b.textContent=n.label;b.dataset.need=n.label;b.setAttribute('aria-pressed','false');b.onclick=()=>{const on=$('#q').value.trim()===n.label;$('#q').value=on?'':n.label;onSearch()};needWrap.appendChild(b)});
+const catWrap=$('#cat-chips');
+[['all','ทั้งหมด'],...Object.entries(CATS)].forEach(([k,v])=>{const b=document.createElement('button');b.className='chip';b.textContent=v;b.dataset.cat=k;b.setAttribute('aria-pressed',k==='all');b.onclick=()=>{cat=k;catWrap.querySelectorAll('.chip').forEach(c=>c.setAttribute('aria-pressed',c.dataset.cat===k));renderGrid()};catWrap.appendChild(b)});
+
+/* ---------- search / recommend ---------- */
+function matchNeeds(q){
+  if(!q)return[];
+  const ql=q.toLowerCase();
+  return NEEDS.filter(n=>n.words.some(w=>ql.includes(w.toLowerCase())||(ql.length>=2&&w.toLowerCase().startsWith(ql)))||n.label===q);
+}
+function textMatch(p,q){
+  const hay=(p.name+' '+p.en+' '+p.props.join(' ')+' '+p.tags.join(' ')+' '+CATS[p.cat]).toLowerCase();
+  return q.toLowerCase().split(/\s+/).filter(Boolean).every(t=>hay.includes(t));
+}
+function onSearch(){
+  query=$('#q').value.trim();
+  const needs=matchNeeds(query);
+  needWrap.querySelectorAll('.chip').forEach(c=>c.setAttribute('aria-pressed',needs.some(n=>n.label===c.dataset.need)&&!!query));
+  renderRec(needs);renderGrid();
+}
+function recommended(needs){
+  const score={},why={};
+  needs.forEach(n=>n.picks.forEach(([id,r],i)=>{score[id]=(score[id]||0)+(10-i*2);if(!why[id])why[id]=r}));
+  if(query) P.forEach(p=>{if(textMatch(p,query)){score[p.id]=(score[p.id]||0)+3;if(!why[p.id])why[p.id]=p.props[0]}});
+  return Object.keys(score).sort((a,b)=>score[b]-score[a]).map(id=>({p:byId[id],why:why[id]}));
+}
+function renderRec(needs){
+  const box=$('#rec');
+  if(!query){box.hidden=true;return}
+  const list=recommended(needs);
+  box.hidden=false;
+  if(!list.length){
+    box.innerHTML=`<div class="rec-head"><h2>ไม่พบผลิตภัณฑ์สำหรับ “<em>${esc(query)}</em>”</h2></div><p style="margin:0;color:var(--muted)">ลองค้นด้วยคำที่ใกล้เคียง เช่น กระดูก ผิว ภูมิคุ้มกัน ขับถ่าย โปรตีน หรือเลือกจากปุ่มด้านบน</p>`;return;
+  }
+  const label=needs.length?needs.map(n=>n.label).join(' · '):query;
+  box.innerHTML=`<div class="rec-head"><h2>แนะนำสำหรับ “<em>${esc(label)}</em>”</h2><button class="add" id="add-rec" style="margin:0;padding:8px 14px;font-size:14px">เพิ่มทั้งหมดลงแผน</button></div>
+  <div class="rec-list">${list.slice(0,4).map((r,i)=>`<div class="rec-item"><span class="rank">${i+1}</span><div style="min-width:0"><b>${r.p.name}</b><small>${esc(r.why)}</small><span class="rp">${perDayLabel(r.p)}</span></div></div>`).join('')}</div>`;
+  $('#add-rec').onclick=()=>{list.slice(0,4).forEach(r=>addToPlan(r.p.id,false));renderAll();jumpPlanner()};
+}
+function esc(s){return s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
+function perDayLabel(p){return p.dose?`เฉลี่ย ฿${fmt(perDay(p),2)} / วัน`:`฿${fmt(unitCost(p),2)} / ${p.unit}`}
+
+/* ---------- catalog ---------- */
+function renderGrid(){
+  const needs=matchNeeds(query);
+  let ids=null;
+  if(query){ids=new Set(recommended(needs).map(r=>r.p.id))}
+  let list=P.filter(p=>(cat==='all'||p.cat===cat)&&(!ids||ids.has(p.id)));
+  const s={perday:(a,b)=>perDay(a)-perDay(b),'perday-desc':(a,b)=>perDay(b)-perDay(a),price:(a,b)=>price(a)-price(b),name:(a,b)=>a.name.localeCompare(b.name,'th')}[sort];
+  list.sort(s);
+  $('#count').textContent=`${list.length} รายการ`;
+  const inPlan=new Set(plan.items.map(i=>i.id));
+  $('#grid').innerHTML=list.length?list.map((p,i)=>{
+    const days=p.dose?p.units/p.dose:null;
+    return `<article class="card glass${ids?' hit':''}" style="animation-delay:${Math.min(i,8)*45}ms">
+      <div class="c-top"><div class="icon">${ICONS[p.form]}</div><div class="c-title"><div class="cat">${CATS[p.cat]}</div><h3>${p.name}</h3><div class="en">${p.en}</div><div class="pack">${p.pack}</div></div></div>
+      <div class="price-row">
+        <div><span class="lbl">ราคาสมาชิก</span><span class="val">฿${fmt(p.member)}</span></div>
+        <div><span class="lbl">ราคาขายปลีก</span><span class="val">${p.retailApprox?'≈ ':''}฿${fmt(p.retail)}</span></div>
+        <div class="per-day">${p.dose
+          ?`<span class="big">฿${fmt(perDay(p),2)} <small>/ วัน</small></span><span class="days">1 ชิ้นกินได้<br><b style="color:var(--ink);font-weight:500">${fmt(days,days%1?1:0)} วัน</b></span>`
+          :`<span class="big">฿${fmt(unitCost(p),2)} <small>/ ${p.unit}</small></span><span class="days">ต่อวันขึ้นกับ<br>ขนาดที่ใช้</span>`}</div>
+      </div>
+      <div class="dose"><strong>วิธีรับประทาน</strong> ${p.doseText}${p.doseFlag==='check'?' <span class="flag">ตรวจฉลาก</span>':''}</div>
+      <ul class="props">${p.props.map(x=>`<li>${x}</li>`).join('')}</ul>
+      <div class="tags">${p.tags.map(t=>`<span class="tag">${t}</span>`).join('')}</div>
+      <button class="add${inPlan.has(p.id)?' in':''}" data-add="${p.id}">${inPlan.has(p.id)?'อยู่ในแผนแล้ว ✓':'+ เพิ่มลงแผนการกิน'}</button>
+    </article>`}).join(''):`<div class="empty glass">ไม่มีผลิตภัณฑ์ในหมวดนี้ที่ตรงกับคำค้น</div>`;
+}
+$('#grid').addEventListener('click',e=>{const b=e.target.closest('[data-add]');if(!b)return;const id=b.dataset.add;if(plan.items.some(i=>i.id===id)){plan.items=plan.items.filter(i=>i.id!==id)}else addToPlan(id,false);renderAll()});
+
+/* ---------- planner ---------- */
+function addToPlan(id){if(plan.items.some(i=>i.id===id))return;const p=byId[id];plan.items.push({id,dose:p.dose||1})}
+function renderPlan(){
+  const days=Math.max(1,Math.min(730,parseInt(plan.days)||30));
+  $('#days').value=days;
+  document.querySelectorAll('[data-days]').forEach(b=>b.setAttribute('aria-pressed',+b.dataset.days===days));
+  const rows=$('#rows');
+  if(!plan.items.length){rows.innerHTML='<div class="plan-empty">ยังไม่มีผลิตภัณฑ์ในแผน กด “เพิ่มลงแผนการกิน” ที่การ์ดสินค้า หรือค้นหาแล้วกด “เพิ่มทั้งหมดลงแผน”</div>'}
+  let tDay=0,tAvg=0,tBuy=0,tPacks=0,tUnits=0;
+  rows.innerHTML=plan.items.length?plan.items.map(it=>{
+    const p=byId[it.id];const dose=Math.max(0,+it.dose||0);
+    const need=dose*days, packs=Math.ceil(need/p.units-1e-9), avg=unitCost(p)*need, buy=packs*price(p), day=unitCost(p)*dose;
+    tDay+=day;tAvg+=avg;tBuy+=buy;tPacks+=packs;if(p.unit==='เม็ด'||p.unit==='แคปซูล')tUnits+=dose;
+    const left=packs*p.units-need;
+    return `<div class="row"><div class="row-h"><b>${p.name}</b><button class="x" data-del="${p.id}" aria-label="นำ ${p.name} ออกจากแผน">×</button></div>
+      <div class="row-ctl"><label for="d-${p.id}">วันละ</label><input class="num" id="d-${p.id}" data-dose="${p.id}" type="number" min="0" step="${p.form==='can'?0.5:1}" value="${dose}" inputmode="decimal"><span>${p.unit}</span>${p.doseFlag==='user'?'<span class="flag">ใช้ตามฉลากยา</span>':p.dose&&dose!==p.dose?`<span class="flag">ฉลาก ${p.dose} ${p.unit}</span>`:''}</div>
+      <div class="row-out"><span>ต้องกินทั้งหมด<b>${fmt(need,need%1?1:0)}</b>${p.unit}</span><span>ต้องซื้อ<b>${packs} ชิ้น</b>${left>0?`เหลือ ${fmt(left,left%1?1:0)}`:'พอดี'}</span><span>ต่อวัน<b>฿${fmt(day,2)}</b>รวม ฿${fmt(avg)}</span></div></div>`}).join(''):rows.innerHTML;
+  $('#sum').innerHTML=`<div class="hero"><span>ค่าใช้จ่ายเฉลี่ยต่อวัน (${mode==='member'?'ราคาสมาชิก':'ราคาขายปลีก'})</span><b>฿${fmt(tDay,2)}</b></div>
+    <div><span>เฉลี่ยตลอด ${days} วัน</span><b>฿${fmt(tAvg)}</b></div>
+    <div><span>จ่ายจริง (ซื้อเต็มชิ้น)</span><b>฿${fmt(tBuy)}</b></div>
+    <div><span>ต่อเดือน (30 วัน)</span><b>฿${fmt(tDay*30)}</b></div>
+    <div><span>จำนวนชิ้นที่ต้องซื้อ</span><b>${tPacks} ชิ้น</b></div>
+    <div class="hero" style="grid-column:1/-1"><span>เม็ด/แคปซูลที่กินต่อวันรวม</span><b style="font-size:20px;color:var(--ink)">${fmt(tUnits,tUnits%1?1:0)} เม็ด</b></div>`;
+  $('#fab-n').textContent=plan.items.length;
+  store.set('nt-plan',plan);
+}
+$('#rows').addEventListener('input',e=>{const id=e.target.dataset.dose;if(!id)return;const it=plan.items.find(i=>i.id===id);it.dose=e.target.value;clearTimeout(window._t);window._t=setTimeout(()=>{const f=document.activeElement&&document.activeElement.id;renderPlan();if(f){const el=document.getElementById(f);if(el){el.focus();const v=el.value;el.value='';el.value=v}}},350)});
+$('#rows').addEventListener('click',e=>{const id=e.target.dataset.del;if(!id)return;plan.items=plan.items.filter(i=>i.id!==id);renderAll()});
+$('#days').addEventListener('change',e=>{plan.days=e.target.value;renderPlan()});
+document.querySelectorAll('[data-days]').forEach(b=>b.onclick=()=>{plan.days=+b.dataset.days;renderPlan()});
+$('#clear').onclick=()=>{plan={days:plan.days,items:[]};renderAll()};
+$('#sample').onclick=()=>{plan=JSON.parse(JSON.stringify(SAMPLE));renderAll()};
+
+/* ---------- misc ---------- */
+function setMode(m){mode=m;store.set('nt-mode',m);$('#mode-member').setAttribute('aria-pressed',m==='member');$('#mode-retail').setAttribute('aria-pressed',m==='retail');renderAll();onSearch()}
+$('#mode-member').onclick=()=>setMode('member');$('#mode-retail').onclick=()=>setMode('retail');
+$('#sort').onchange=e=>{sort=e.target.value;renderGrid()};
+$('#q').addEventListener('input',()=>{clearTimeout(window._s);window._s=setTimeout(onSearch,150)});
+function jumpPlanner(){if(window.innerWidth<1100)$('#planner').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'})}
+$('#fab').onclick=jumpPlanner;
+function renderAll(){renderGrid();renderPlan()}
+setMode(mode);
+</script>
+
+</body>
+</html>
