@@ -98,6 +98,15 @@ select{font:inherit;font-size:14px;color:var(--ink);background:var(--glass-stron
 .per-day .big{font-size:26px;font-weight:600;color:var(--sky);font-variant-numeric:tabular-nums;line-height:1}
 .per-day .big small{font-size:14px;font-weight:400;color:var(--muted)}
 .days{font-size:13px;color:var(--muted);text-align:right}
+.when{font-size:12px;color:var(--faint);margin-top:-4px}
+.when.old{color:var(--warn)}
+.pending{margin-top:16px;padding:18px 20px;display:flex;flex-direction:column;gap:10px}
+.pending h3{margin:0;font-size:16px;font-weight:500;color:var(--navy)}
+.pending p{margin:0;font-size:13.5px;color:var(--muted)}
+.pending ul{margin:0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:8px}
+.pending li{font-size:13.5px;padding:10px 12px;border-radius:14px;background:var(--glass-strong);border:1px solid var(--line);min-width:0}
+.pending li b{font-weight:500;display:block}
+.pending li span{color:var(--muted);font-size:12.5px}
 .dose{font-size:13.5px;color:var(--muted);display:flex;gap:6px;flex-wrap:wrap;align-items:center}
 .dose strong{color:var(--ink);font-weight:500}
 .flag{font-size:11.5px;padding:1px 8px;border-radius:999px;background:var(--warn-bg);color:var(--warn);white-space:nowrap}
@@ -194,6 +203,18 @@ footer ul{margin:0;padding-left:18px;columns:2 260px}
         </div>
       </div>
       <div class="grid" id="grid"></div>
+      <div class="pending glass">
+        <h3>สินค้าที่ยังไม่มีราคายืนยัน</h3>
+        <p>พบข้อมูลสินค้าเหล่านี้บนเว็บไซต์แอมเวย์ แต่ยังหาราคาสมาชิกปัจจุบันจากแหล่งทางการไม่ได้ จึงยังไม่ได้คำนวณค่าเฉลี่ยต่อวัน</p>
+        <ul>
+          <li><b>โคคิวเท็น พลัส</b><span>60 แคปซูล · โคเอนไซม์ คิวเท็น แอล-คาร์นิทีน ทอรีน ซิตรัส ไบโอฟลาโวนอยด์</span></li>
+          <li><b>เลส-เตอรอล</b><span>60 แคปซูล · วันละ 2 แคปซูล · สารสกัดชาเขียว เลซิตินถั่วเหลือง วิตามินอี</span></li>
+          <li><b>แคลโลว์</b><span>90 เม็ด · วันละ 2 เม็ด พร้อมอาหาร · สารสกัดถั่วขาว ถั่วเหลือง พาร์สลีย์</span></li>
+          <li><b>กรีน-ที พลัส</b><span>60 เม็ด · สารสกัดชาเขียว (EGCG) และสาหร่ายสีน้ำตาล</span></li>
+          <li><b>พริมโรส พลัส</b><span>สำหรับผู้หญิง · ราคาสมาชิกประมาณ ฿1,055 (คำนวณจากโปรโมชั่น พ.ค. 2568) ยังไม่ทราบขนาดบรรจุ</span></li>
+          <li><b>ซุปผงกลิ่นเห็ดและพริกไทยดำ</b><span>ราคาสมาชิก ฿1,950 · ขายปลีก ฿2,145 · ยังไม่ทราบจำนวนซองต่อกล่อง</span></li>
+        </ul>
+      </div>
     </section>
 
     <aside class="planner glass" id="planner" aria-label="เครื่องคำนวณปริมาณการกิน">
@@ -219,7 +240,7 @@ footer ul{margin:0;padding-left:18px;columns:2 260px}
 
   <footer class="glass">
     <strong style="color:var(--ink);font-weight:500">ที่มาของข้อมูลและข้อควรทราบ</strong>
-    <span>ราคาสมาชิกรวบรวมจากหน้าโปรโมชั่นและบทความบน amway.co.th (ปี 2567–2569) ราคาอาจเปลี่ยนแปลงได้ ควรตรวจสอบที่แอมเวย์ ช็อป หรือ 0-2725-8000 ก่อนสั่งซื้อ ราคาขายปลีกที่มีเครื่องหมาย ≈ คำนวณจากราคาสมาชิก +10% ตามสัดส่วนที่แอมเวย์ใช้กับสินค้าอื่น หน้านี้ไม่ใช่เว็บไซต์ทางการของแอมเวย์</span>
+    <span>ราคาสมาชิกรวบรวมจากหน้าโปรโมชั่นและบทความบน amway.co.th และข่าวเปิดตัวสินค้าของแอมเวย์ (ปี 2563–2569) แต่ละการ์ดระบุเดือนของข้อมูลราคาไว้ ราคาอาจเปลี่ยนแปลงได้ ควรตรวจสอบที่แอมเวย์ ช็อป หรือ 0-2725-8000 ก่อนสั่งซื้อ ราคาขายปลีกที่มีเครื่องหมาย ≈ คำนวณจากราคาสมาชิก +10% ตามสัดส่วนที่แอมเวย์ใช้กับสินค้าอื่น หน้านี้ไม่ใช่เว็บไซต์ทางการของแอมเวย์</span>
     <span>ผลิตภัณฑ์เสริมอาหารไม่มีผลในการป้องกันหรือรักษาโรค เด็กและสตรีมีครรภ์ไม่ควรรับประทาน ผู้ที่ใช้ยาประจำควรปรึกษาแพทย์หรือเภสัชกร คำแนะนำจากการค้นหาเป็นข้อมูลทั่วไป ไม่ใช่คำแนะนำทางการแพทย์</span>
     <ul>
       <li><a href="https://amway.co.th/promotions/feb-2026-doublex" target="_blank" rel="noopener">ดับเบิ้ล เอ็กซ์ (ก.พ. 69)</a></li>
@@ -234,6 +255,14 @@ footer ul{margin:0;padding-left:18px;columns:2 260px}
       <li><a href="https://amway.co.th/articles/nutrilite-begin-and-fiber-powder-plus" target="_blank" rel="noopener">บีกิน และไฟเบอร์ พาวเดอร์ พลัส</a></li>
       <li><a href="https://amway.co.th/promotions/sep-2025-garlic" target="_blank" rel="noopener">การ์ลิค (ก.ย. 68)</a></li>
       <li><a href="https://support.amway.co.th/hc/th/articles/22739730496660" target="_blank" rel="noopener">กลูโคซามีน (ศูนย์ช่วยเหลือ)</a></li>
+      <li><a href="https://www.the-perspective.co/amway-nutrilite-triple-omega/" target="_blank" rel="noopener">ทริปเปิล โอเมก้า (พ.ย. 67)</a></li>
+      <li><a href="https://thereporter.asia/2020/05/nutrilite/" target="_blank" rel="noopener">วิตามินบี พลัส (พ.ค. 63)</a></li>
+      <li><a href="https://www.ryt9.com/s/prg/3288536" target="_blank" rel="noopener">โพรไบโอติก ดับเบิ้ลยู (ม.ค. 65)</a></li>
+      <li><a href="https://siamrath.co.th/press-release/157280" target="_blank" rel="noopener">โพรไบโอติก มายด์ (มิ.ย. 69)</a></li>
+      <li><a href="https://kaoupdate.com/2024/09/16/72579-nutrilite-post-b/" target="_blank" rel="noopener">โพส-บี (ก.ย. 67)</a></li>
+      <li><a href="https://www.banmuang.co.th/news/marketing/337013" target="_blank" rel="noopener">หลินจือ เฮอร์บัล พลัส และจูจูบี ไนท์ (ก.ค. 66)</a></li>
+      <li><a href="https://kaoupdate.com/2025/08/25/89232-bodykey-challenge-11th/" target="_blank" rel="noopener">บอดี้คีย์ สูตรใหม่ (ส.ค. 68)</a></li>
+      <li><a href="https://amway.co.th/en/articles/health1-dec-2024-4" target="_blank" rel="noopener">ซุปผงกลิ่นเห็ด (ธ.ค. 67)</a></li>
     </ul>
   </footer>
 </div>
@@ -247,7 +276,9 @@ const ICONS={
   sachet:'<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M6 3h12v18H6z"/><path d="M6 6.5h12M6 17.5h12" stroke-dasharray="1.5 1.5"/><path d="M10 11.5h4"/></svg>',
   can:'<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><ellipse cx="12" cy="5.5" rx="6" ry="2.2"/><path d="M6 5.5v13c0 1.2 2.7 2.2 6 2.2s6-1 6-2.2v-13"/><path d="M6 10h12M6 14.5h12" opacity=".5"/></svg>'
 };
-const CATS={vitamin:'วิตามินและแร่ธาตุ',bone:'กระดูกและข้อ',beauty:'ผิวพรรณ',protein:'โปรตีน',digest:'ระบบขับถ่าย',herbal:'สารสกัดธรรมชาติ'};
+const CATS={vitamin:'วิตามินและแร่ธาตุ',bone:'กระดูกและข้อ',heart:'หัวใจและหลอดเลือด',beauty:'ผิวพรรณ',protein:'โปรตีน',weight:'ควบคุมน้ำหนัก',digest:'ลำไส้และการขับถ่าย',rest:'พักผ่อน',herbal:'สารสกัดธรรมชาติ'};
+const WHEN={doublex:'ก.พ. 2569',begin:'ก.ย. 2569',calmagd:'มี.ค. 2569',d3k2:'ต.ค. 2569',glucosamine:'2569',bioc:'เม.ย. 2568',collagen:'พ.ค. 2568',allplant:'ม.ค. 2569',allplantplus:'พ.ค. 2566',fiber:'ส.ค. 2569',garlic:'ก.ย. 2568',omega:'พ.ย. 2567',vitb:'พ.ค. 2563',probw:'ม.ค. 2565',probmind:'มิ.ย. 2569',postb:'ก.ย. 2567',lingzhi:'ก.ค. 2566',jujube:'ก.ค. 2566',bodykey:'ส.ค. 2568'};
+const OLD_PRICE=new Set(['vitb','probw','lingzhi','jujube','allplantplus']);
 
 // doseFlag: 'label' = from Amway page/label; 'check' = approximate default, verify with label; 'user' = set by user (medicine)
 const P=[
@@ -265,7 +296,7 @@ const P=[
   tags:['กระดูก','แคลเซียม']},
  {id:'d3k2',name:'วิตามินดี3 + เค2',en:'Vitamin D3 + K2',cat:'bone',form:'softgel',pack:'30 ซอฟต์เจล',units:30,unit:'แคปซูล',dose:1,doseFlag:'label',
   doseText:'วันละ 1 แคปซูล',member:990,retail:1090,retailApprox:false,
-  props:['วิตามินดี3 400 IU และวิตามินเค2 50 ไมโครกรัมต่อแคปซูล','วิตามินดีและเคมีส่วนช่วยคงสภาพปกติของกระดูก','วิตามินดีช่วยคงระดับแคลเซียมในเลือดและการทำงานปกติของภูมิคุ้มกัน','ผู้ที่ใช้ยาต้านการแข็งตัวของเลือดควรปรึกษาแพทย์ก่อน (วิตามินเคเกี่ยวกับการแข็งตัวของเลือด)'],
+  props:['วิตามินดี3 400 IU และวิตามินเค2 50 ไมโครกรัมต่อแคปซูล','วิตามินดีและวิตามินเคมีส่วนช่วยคงสภาพปกติของกระดูก','วิตามินดีช่วยคงระดับแคลเซียมในเลือดและการทำงานปกติของภูมิคุ้มกัน','ผู้ที่ใช้ยาต้านการแข็งตัวของเลือดควรปรึกษาแพทย์ก่อน (วิตามินเคเกี่ยวกับการแข็งตัวของเลือด)'],
   tags:['สินค้าใหม่','กระดูก','ภูมิคุ้มกัน']},
  {id:'glucosamine',name:'กลูโคซามีน',en:'Glucosamine',cat:'bone',form:'softgel',pack:'120 แคปซูล',units:120,unit:'แคปซูล',dose:null,doseFlag:'user',
   doseText:'ผลิตภัณฑ์ยา ใช้ตามฉลากหรือคำแนะนำของเภสัชกร',member:1515,
@@ -294,7 +325,39 @@ const P=[
  {id:'garlic',name:'การ์ลิค',en:'Garlic',cat:'herbal',form:'tablet',pack:'150 เม็ด',units:150,unit:'เม็ด',dose:1,doseFlag:'check',
   doseText:'วันละ 1 เม็ด',member:1195,
   props:['กระเทียมอัดเม็ด มีสารอัลลิซินจากกระเทียม','เม็ดเคลือบละลายในลำไส้ ช่วยลดกลิ่นกระเทียม','บรรจุ 150 เม็ด กินได้นาน'],
-  tags:['กระเทียม','หัวใจ']}
+  tags:['กระเทียม','หัวใจ']},
+ {id:'omega',name:'ทริปเปิล โอเมก้า',en:'Triple Omega',cat:'heart',form:'softgel',pack:'30 แคปซูล',units:30,unit:'แคปซูล',dose:1,doseFlag:'label',
+  doseText:'วันละ 1 แคปซูล พร้อมมื้ออาหาร',member:975,retail:1075,retailApprox:false,
+  props:['น้ำมันปลา 744 มก. ต่อแคปซูล ให้ EPA 286 มก. และ DHA 214 มก.','น้ำมันเมล็ดเจีย 20 มก.','วิตามินอี (ดี-แอลฟา โทโคฟีรอล) 16.6 มก.','ให้กรดไขมันกลุ่มโอเมก้า-3'],
+  tags:['น้ำมันปลา','โอเมก้า-3','หัวใจ']},
+ {id:'vitb',name:'วิตามินบี พลัส',en:'Vitamin B Plus',cat:'vitamin',form:'tablet',pack:'60 เม็ด',units:60,unit:'เม็ด',dose:1,doseFlag:'label',
+  doseText:'วันละ 1 เม็ด พร้อมอาหาร',member:480,retail:530,retailApprox:false,
+  props:['วิตามินบีจำเป็นครบ 8 ชนิด: B1 B2 B3 B5 B6 ไบโอติน โฟลิก B12','มีผงยีสต์ 75 มก. ต่อเม็ด','เม็ดเคลือบ 2 ชั้น','ไม่ใช้สี กลิ่นรส หรือวัตถุกันเสีย'],
+  tags:['วิตามินบี','พลังงาน']},
+ {id:'probw',name:'โพรไบโอติก ดับเบิ้ลยู',en:'Probiotic W',cat:'digest',form:'sachet',pack:'30 ซอง (ซองละ 2 กรัม)',units:30,unit:'ซอง',dose:1,doseFlag:'label',
+  doseText:'วันละ 1 ซอง ผสมน้ำอุณหภูมิห้อง 150 มล. ดื่มภายใน 5 นาที',member:1500,retail:1650,retailApprox:false,
+  props:['Lactobacillus rhamnosus 6.0 × 10⁹ CFU และ L. acidophilus 4.4 × 10⁹ CFU ต่อซอง','มีอินูลินและฟรุกโตโอลิโกแซกคาไรด์ (พรีไบโอติก)','ผงแครนเบอร์รี 60 มก. ต่อซอง','ไม่ควรผสมกับอาหารหรือเครื่องดื่มร้อน'],
+  tags:['โพรไบโอติก','ผู้หญิง','ลำไส้']},
+ {id:'probmind',name:'โพรไบโอติก มายด์',en:'Probiotic Mind',cat:'digest',form:'softgel',pack:'30 แคปซูล',units:30,unit:'แคปซูล',dose:1,doseFlag:'label',
+  doseText:'วันละ 1 แคปซูล',member:1650,retail:1815,retailApprox:false,
+  props:['โพรไบโอติก 2 สายพันธุ์: L. paracasei (LPC-37™) และ B. animalis lactis (B420™)','ผงเมลอนออร์แกนิกที่มีเอนไซม์ซูเปอร์ออกไซด์ดิสมิวเทส (SOD)','ผลิตในโรงงานมาตรฐาน GMP','สินค้าใหม่ มิ.ย. 2569'],
+  tags:['สินค้าใหม่','โพรไบโอติก','ลำไส้']},
+ {id:'postb',name:'โพส-บี',en:'Post-B',cat:'digest',form:'softgel',pack:'60 แคปซูล',units:60,unit:'แคปซูล',dose:2,doseFlag:'label',
+  doseText:'วันละ 2 แคปซูล',member:1650,retail:1815,retailApprox:false,
+  props:['จุลินทรีย์ชนิดไม่มีชีวิต (โพสต์ไบโอติก) สายพันธุ์ B. lactis CECT8145','วัตถุดิบธรรมชาติ: กีวีสีทองจากนิวซีแลนด์ และแครอทม่วง','วิตามินบี 2 มีส่วนช่วยการทำงานปกติของระบบประสาท','วิตามินบี 5 มีส่วนช่วยกระบวนการสร้างพลังงานตามปกติ'],
+  tags:['โพสต์ไบโอติก','ลำไส้']},
+ {id:'lingzhi',name:'หลินจือ เฮอร์บัล พลัส',en:'Lingzhi Herbal Plus',cat:'herbal',form:'tablet',pack:'60 เม็ด',units:60,unit:'เม็ด',dose:2,doseFlag:'label',
+  doseText:'ครั้งละ 1 เม็ด วันละ 2 ครั้ง',member:800,retail:880,retailApprox:false,
+  props:['สารสกัดเห็ดหลินจือออร์แกนิก ให้เบต้ากลูแคน 7.98 มก.','ผงซีบัคธอร์น','ผงน้ำเอลเดอร์เบอร์รี'],
+  tags:['หลินจือ','สมุนไพร']},
+ {id:'jujube',name:'จูจูบี ไนท์',en:'Jujube Nite',cat:'rest',form:'tablet',pack:'60 เม็ด',units:60,unit:'เม็ด',dose:1,doseFlag:'label',
+  doseText:'วันละ 1 เม็ด ก่อนนอน',member:1200,retail:1320,retailApprox:false,
+  props:['สารสกัดจากเมล็ดพุทราจีน (Jujube)','มีกาบา (GABA, gamma-aminobutyric acid)','ออกแบบให้รับประทานก่อนนอน'],
+  tags:['ก่อนนอน','พักผ่อน']},
+ {id:'bodykey',name:'บอดี้คีย์ บาย นิวทริไลท์',en:'BodyKey Meal Replacement',cat:'weight',form:'sachet',pack:'14 ซอง (ซองละ 51 กรัม) · กาแฟ เบอร์รี ชานมกล้วย โกโก้',units:14,unit:'ซอง',dose:1,doseFlag:'label',
+  doseText:'วันละ 1–2 ครั้ง แทนมื้ออาหาร ผสมน้ำ 250 มล.',member:1700,retail:1870,retailApprox:false,
+  props:['ผลิตภัณฑ์ทดแทนมื้ออาหาร ให้พลังงานและสารอาหารเหมาะกับ 1 มื้อ','โปรตีนจากพืช (ถั่วเหลือง เมล็ดเจีย) ใยอาหาร วิตามินและแร่ธาตุ','สูตรใหม่ น้ำตาล 6 กรัมต่อซอง','ใยอาหารช่วยเพิ่มกากและกระตุ้นการขับถ่าย'],
+  tags:['ลดน้ำหนัก','แทนมื้ออาหาร']}
 ];
 P.forEach(p=>{if(p.retail==null){p.retail=Math.round(p.member*1.1);p.retailApprox=true}});
 const byId=Object.fromEntries(P.map(p=>[p.id,p]));
@@ -304,10 +367,14 @@ const NEEDS=[
  {label:'ข้อเข่า',words:['ข้อ','เข่า','ข้อเข่า','joint','ปวดข้อ','กลูโคซามีน'],picks:[['glucosamine','ผลิตภัณฑ์ยาสำหรับข้อ ใช้ตามคำแนะนำเภสัชกร'],['calmagd','ดูแลกระดูกควบคู่'],['collagen','คอลลาเจนจากปลาทะเล']]},
  {label:'ภูมิคุ้มกัน',words:['ภูมิ','ภูมิคุ้มกัน','หวัด','ป่วยบ่อย','immune','วิตามินซี','vitamin c'],picks:[['bioc','วิตามินซีจากอะเซโรลา เชอร์รี'],['d3k2','วิตามินดีช่วยการทำงานปกติของภูมิคุ้มกัน'],['doublex','วิตามินและแร่ธาตุรวมเป็นพื้นฐาน']]},
  {label:'ผิวสวย',words:['ผิว','สวย','ความงาม','ริ้วรอย','คอลลาเจน','skin','collagen','ผม','เล็บ'],picks:[['collagen','ไฮโดรไลซ์คอลลาเจน 1,620 มก. ต่อซอง'],['bioc','วิตามินซีช่วยสร้างคอลลาเจนเพื่อผิว']]},
- {label:'ขับถ่าย',words:['ขับถ่าย','ท้องผูก','ไฟเบอร์','ใยอาหาร','ลำไส้','fiber','ถ่าย'],picks:[['fiber','ใยอาหารช่วยเพิ่มกากและกระตุ้นการขับถ่าย'],['begin','ส่วนผสมธรรมชาติ 30 ชนิด เริ่มต้นทุกเช้า']]},
+ {label:'ขับถ่าย',words:['ขับถ่าย','ท้องผูก','ไฟเบอร์','ใยอาหาร','fiber','ถ่าย'],picks:[['fiber','ใยอาหารช่วยเพิ่มกากและกระตุ้นการขับถ่าย'],['probw','โพรไบโอติก 2 ชนิด พร้อมพรีไบโอติก'],['postb','โพสต์ไบโอติก B. lactis กับกีวีสีทอง']]},
+ {label:'ลำไส้',words:['ลำไส้','โพรไบโอติก','จุลินทรีย์','ท้อง','probiotic','gut','โพสต์ไบโอติก'],picks:[['probmind','โพรไบโอติก LPC-37™ และ B420™ วันละแคปซูลเดียว'],['probw','L. rhamnosus และ L. acidophilus พร้อมแครนเบอร์รี'],['postb','จุลินทรีย์ไม่มีชีวิต B. lactis CECT8145'],['fiber','ใยอาหารจากพืช']]},
+ {label:'นอนหลับ',words:['นอน','หลับ','นอนไม่หลับ','ก่อนนอน','พักผ่อน','เครียด','sleep','ผ่อนคลาย'],picks:[['jujube','สารสกัดเมล็ดพุทราจีนและ GABA รับประทานก่อนนอน'],['vitb','วิตามินบีจำเป็นครบ 8 ชนิด']]},
+ {label:'ลดน้ำหนัก',words:['ลดน้ำหนัก','คุมน้ำหนัก','อ้วน','ไดเอท','diet','แทนมื้อ','น้ำหนัก','หุ่น'],picks:[['bodykey','ทดแทนมื้ออาหาร น้ำตาล 6 กรัมต่อซอง'],['allplantplus','โปรตีนพืช ไม่มีน้ำตาล'],['fiber','ใยอาหารเพิ่มกาก']]},
  {label:'โปรตีน',words:['โปรตีน','กล้าม','ออกกำลัง','ฟิตเนส','ลดน้ำหนัก','มังสวิรัติ','วีแกน','protein','gym','เจ'],picks:[['allplant','โปรตีนพืช 3 ชนิด กรดอะมิโนจำเป็นครบ'],['allplantplus','ไม่มีน้ำตาลและแลคโตส เพิ่มดูอัลเปปไทด์']]},
- {label:'อ่อนเพลีย',words:['อ่อนเพลีย','เหนื่อย','พักผ่อนน้อย','กินผักน้อย','วิตามินรวม','พื้นฐาน','ทำงานหนัก','multivitamin','วิตามิน'],picks:[['doublex','วิตามินรวม เกลือแร่รวม และสารสกัดจากพืช'],['begin','ซองเดียวต่อวัน ส่วนผสม 30 ชนิด'],['bioc','วิตามินซีเสริม']]},
- {label:'หัวใจ',words:['หัวใจ','หลอดเลือด','กระเทียม','garlic','heart','ไขมัน'],picks:[['garlic','กระเทียมที่มีอัลลิซิน เม็ดเคลือบลดกลิ่น'],['bioc','วิตามินซีช่วยให้หลอดเลือดแข็งแรง']]},
+ {label:'อ่อนเพลีย',words:['อ่อนเพลีย','เหนื่อย','พักผ่อนน้อย','กินผักน้อย','วิตามินรวม','พื้นฐาน','ทำงานหนัก','multivitamin','วิตามิน'],picks:[['doublex','วิตามินรวม เกลือแร่รวม และสารสกัดจากพืช'],['vitb','วิตามินบีครบ 8 ชนิด ราคาต่อวันต่ำ'],['begin','ซองเดียวต่อวัน ส่วนผสม 30 ชนิด'],['lingzhi','หลินจือออร์แกนิกกับซีบัคธอร์น']]},
+ {label:'หัวใจ',words:['หัวใจ','หลอดเลือด','กระเทียม','garlic','heart','ไขมัน','โอเมก้า','น้ำมันปลา','omega','fish oil'],picks:[['omega','น้ำมันปลา EPA 286 มก. DHA 214 มก. ต่อแคปซูล'],['garlic','กระเทียมที่มีอัลลิซิน เม็ดเคลือบลดกลิ่น'],['bioc','วิตามินซีช่วยให้หลอดเลือดแข็งแรง']]},
+ {label:'สมุนไพร',words:['สมุนไพร','หลินจือ','เห็ด','ธรรมชาติ','herbal','lingzhi'],picks:[['lingzhi','หลินจือออร์แกนิก เบต้ากลูแคน 7.98 มก.'],['garlic','กระเทียมอัดเม็ด'],['jujube','สารสกัดเมล็ดพุทราจีน']]},
  {label:'ผู้สูงอายุ',words:['ผู้สูงอายุ','สูงวัย','คนแก่','พ่อแม่','วัยทอง','อายุ','elderly'],picks:[['calmagd','ดูแลกระดูกด้วยแคลเซียมและวิตามินดี'],['d3k2','วิตามินดีและเคสำหรับกระดูก'],['allplant','โปรตีนย่อยง่ายจากพืช'],['doublex','วิตามินรวมพื้นฐาน']]}
 ];
 
@@ -389,6 +456,7 @@ function renderGrid(){
           ?`<span class="big">฿${fmt(perDay(p),2)} <small>/ วัน</small></span><span class="days">1 ชิ้นกินได้<br><b style="color:var(--ink);font-weight:500">${fmt(days,days%1?1:0)} วัน</b></span>`
           :`<span class="big">฿${fmt(unitCost(p),2)} <small>/ ${p.unit}</small></span><span class="days">ต่อวันขึ้นกับ<br>ขนาดที่ใช้</span>`}</div>
       </div>
+      <div class="when${OLD_PRICE.has(p.id)?' old':''}">ข้อมูลราคา ณ ${WHEN[p.id]||'—'}${OLD_PRICE.has(p.id)?' · ราคาตอนเปิดตัว อาจปรับแล้ว':''}</div>
       <div class="dose"><strong>วิธีรับประทาน</strong> ${p.doseText}${p.doseFlag==='check'?' <span class="flag">ตรวจฉลาก</span>':''}</div>
       <ul class="props">${p.props.map(x=>`<li>${x}</li>`).join('')}</ul>
       <div class="tags">${p.tags.map(t=>`<span class="tag">${t}</span>`).join('')}</div>
