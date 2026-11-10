@@ -8,62 +8,64 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap">
 <style>
-/* Layout: frosted-glass catalog over drifting navy/sky/leaf light; search-led recommendations on top, catalog grid left, sticky intake planner right */
+/* Layout: white page with soft drifting navy/sky/leaf light behind frosted-glass panels; search-led recommendations, catalog grid left, sticky intake planner right */
 :root{
-  --bg:#FFFFFF; --bg2:#FFFFFF;
+  color-scheme:light;
+  --bg:#FFFFFF;
   --ink:#0B1D36; --muted:#55657C; --faint:#7D8AA0;
-  --navy:#002D5C; --sky:#2878BE; --leaf:#4A8A2A; --gold:#B7862B;
+  --navy:#002D5C; --sky:#2878BE; --leaf:#4A8A2A;
   --btn:#002D5C; --btn-fg:#FFFFFF;
-  --glass:rgba(255,255,255,.62); --glass-strong:rgba(255,255,255,.85);
+  --glass:rgba(255,255,255,.62); --glass-strong:rgba(255,255,255,.86);
   --glass-line:rgba(0,45,92,.10); --line:rgba(11,29,54,.10);
   --shadow:0 10px 30px -14px rgba(0,45,92,.22);
   --blob1:#BFDBF5; --blob2:#D6EDC8; --blob3:#9DB9DD;
-  --chip:rgba(0,45,92,.07); --chip-on:#002D5C; --chip-on-fg:#fff;
+  --chip:rgba(0,45,92,.06); --chip-on:#002D5C; --chip-on-fg:#fff;
   --warn:#9A5B00; --warn-bg:rgba(183,134,43,.14);
   --font:"Kanit",system-ui,-apple-system,"Segoe UI",Tahoma,sans-serif;
 }
-:root{color-scheme:light}
-
 *{box-sizing:border-box}
 [hidden]{display:none!important}
-body{background:linear-gradient(160deg,var(--bg),var(--bg2));color:var(--ink);font-family:var(--font);font-weight:300;font-size:15px;line-height:1.6;min-height:100vh;overflow-x:hidden}
+body{background:var(--bg);color:var(--ink);font-family:var(--font);font-weight:300;font-size:15px;line-height:1.6;overflow-x:hidden}
 .ambient{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
 .ambient span{position:absolute;border-radius:50%;filter:blur(80px);opacity:.45;animation:drift 22s ease-in-out infinite alternate}
 .ambient .a{width:46vmax;height:46vmax;background:var(--blob1);top:-14vmax;left:-10vmax}
 .ambient .b{width:34vmax;height:34vmax;background:var(--blob2);bottom:-10vmax;right:-6vmax;animation-duration:28s}
-.ambient .c{width:28vmax;height:28vmax;background:var(--blob3);top:38%;left:48%;opacity:.28;animation-duration:34s}
+.ambient .c{width:28vmax;height:28vmax;background:var(--blob3);top:38%;left:48%;opacity:.25;animation-duration:34s}
 @keyframes drift{to{transform:translate(4vmax,3vmax) scale(1.08)}}
 
 .wrap{position:relative;z-index:1;max-width:1320px;margin:0 auto;padding-block:28px 64px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:22px}
+@media (max-width:1099px){.wrap{padding-block:24px 110px}}
 .glass{background:var(--glass);border:1px solid var(--glass-line);backdrop-filter:blur(18px) saturate(1.4);-webkit-backdrop-filter:blur(18px) saturate(1.4);border-radius:22px;box-shadow:var(--shadow)}
 
 header.top{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px}
 .brand{display:flex;flex-direction:column;gap:2px;min-width:0}
 .eyebrow{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--leaf);font-weight:500}
 h1{margin:0;font-size:clamp(28px,4.4vw,44px);font-weight:600;line-height:1.15;color:var(--navy);text-wrap:balance}
-.brand p{margin:4px 0 0;color:var(--muted);max-width:60ch}
+.brand p{margin:4px 0 0;color:var(--muted);max-width:62ch}
 .mode{display:flex;padding:4px;gap:4px;border-radius:999px}
 .mode button{border:0;background:transparent;color:var(--muted);font:inherit;font-weight:500;font-size:14px;padding:8px 16px;border-radius:999px;cursor:pointer;transition:background .25s,color .25s}
 .mode button[aria-pressed="true"]{background:var(--btn);color:var(--btn-fg)}
 
-/* search */
 .search{padding:22px;display:flex;flex-direction:column;gap:14px}
 .search label{font-weight:500;font-size:17px;color:var(--navy)}
 .field{position:relative}
-.field svg{position:absolute;left:16px;top:50%;transform:translateY(-50%);color:var(--faint)}
+.field svg{position:absolute;left:16px;top:50%;transform:translateY(-50%);color:var(--faint);pointer-events:none}
 #q{width:100%;font:inherit;font-size:17px;font-weight:400;color:var(--ink);background:var(--glass-strong);border:1px solid var(--line);border-radius:16px;padding:14px 16px 14px 48px;outline:none;transition:border-color .2s,box-shadow .2s}
 #q::placeholder{color:var(--faint)}
-#q:focus{border-color:var(--sky);box-shadow:0 0 0 4px color-mix(in srgb,var(--sky) 22%,transparent)}
+#q:focus{border-color:var(--sky);box-shadow:0 0 0 4px rgba(40,120,190,.18)}
 .chips{display:flex;flex-wrap:wrap;gap:8px}
 .chip{border:1px solid var(--line);background:var(--chip);color:var(--ink);font:inherit;font-size:14px;padding:6px 14px;border-radius:999px;cursor:pointer;transition:transform .2s,background .2s,color .2s}
 .chip:hover{transform:translateY(-1px)}
 .chip[aria-pressed="true"]{background:var(--chip-on);color:var(--chip-on-fg);border-color:transparent}
+.chip small{opacity:.65;font-size:12px;margin-left:4px;font-variant-numeric:tabular-nums}
 .chip-label{font-size:13px;color:var(--muted);align-self:center;margin-right:2px}
 
-.rec{padding:20px 22px;display:flex;flex-direction:column;gap:14px;animation:rise .45s ease both}
+.rec{padding:20px 22px;display:flex;flex-direction:column;gap:14px}
+.rec.enter{animation:rise .45s ease both}
 .rec-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px}
 .rec h2{margin:0;font-size:19px;font-weight:500;color:var(--navy)}
 .rec h2 em{font-style:normal;color:var(--leaf)}
+.rec p{margin:0;color:var(--muted)}
 .rec-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
 .rec-item{display:flex;gap:12px;align-items:flex-start;padding:12px;border-radius:16px;background:var(--glass-strong);border:1px solid var(--line);min-width:0}
 .rec-item b{font-weight:500;display:block}
@@ -71,21 +73,22 @@ h1{margin:0;font-size:clamp(28px,4.4vw,44px);font-weight:600;line-height:1.15;co
 .rec-item .rp{color:var(--sky);font-weight:500;font-variant-numeric:tabular-nums;font-size:14px}
 .rank{flex:none;width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font-weight:600;font-size:14px;background:var(--btn);color:var(--btn-fg)}
 
-/* main grid */
 .main{display:grid;grid-template-columns:minmax(0,1fr);gap:22px;align-items:start}
-@media (min-width:1100px){.main{grid-template-columns:minmax(0,1fr) 380px}}
+@media (min-width:1100px){.main{grid-template-columns:minmax(0,1fr) 390px}}
 .toolbar{display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between;align-items:center}
 .toolbar .count{color:var(--muted);font-size:14px}
+.sortbox{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
 select{font:inherit;font-size:14px;color:var(--ink);background:var(--glass-strong);border:1px solid var(--line);border-radius:12px;padding:7px 12px}
 .cat-chips{display:flex;flex-wrap:wrap;gap:8px}
 
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(285px,1fr));gap:16px;margin-top:14px}
-.card{padding:18px;display:flex;flex-direction:column;gap:12px;transition:transform .3s cubic-bezier(.2,.8,.2,1),box-shadow .3s;animation:rise .5s cubic-bezier(.2,.8,.2,1) both;min-width:0}
+.card{padding:18px;display:flex;flex-direction:column;gap:12px;transition:transform .3s cubic-bezier(.2,.8,.2,1),box-shadow .3s;min-width:0}
+.card.enter{animation:rise .5s cubic-bezier(.2,.8,.2,1) both}
 .card:hover{transform:translateY(-4px)}
 .card.hit{box-shadow:0 0 0 2px var(--leaf),var(--shadow)}
 @keyframes rise{from{transform:translateY(10px);opacity:.4}to{transform:none;opacity:1}}
 .c-top{display:flex;gap:14px;align-items:flex-start}
-.icon{flex:none;width:54px;height:54px;border-radius:16px;display:grid;place-items:center;background:linear-gradient(140deg,color-mix(in srgb,var(--sky) 26%,transparent),color-mix(in srgb,var(--leaf) 22%,transparent));border:1px solid var(--glass-line);color:var(--navy)}
+.icon{flex:none;width:54px;height:54px;border-radius:16px;display:grid;place-items:center;background:linear-gradient(140deg,rgba(40,120,190,.18),rgba(74,138,42,.16));border:1px solid var(--glass-line);color:var(--navy)}
 .c-title{min-width:0}
 .cat{font-size:12px;letter-spacing:.06em;color:var(--leaf);font-weight:500}
 .card h3{margin:0;font-size:18px;font-weight:500;line-height:1.3;color:var(--ink)}
@@ -97,31 +100,26 @@ select{font:inherit;font-size:14px;color:var(--ink);background:var(--glass-stron
 .per-day{grid-column:1/-1;display:flex;align-items:baseline;justify-content:space-between;gap:8px;border-top:1px dashed var(--line);padding-top:8px}
 .per-day .big{font-size:26px;font-weight:600;color:var(--sky);font-variant-numeric:tabular-nums;line-height:1}
 .per-day .big small{font-size:14px;font-weight:400;color:var(--muted)}
-.days{font-size:13px;color:var(--muted);text-align:right}
-.when{font-size:12px;color:var(--faint);margin-top:-4px}
-.when.old{color:var(--warn)}
-.pending{margin-top:16px;padding:18px 20px;display:flex;flex-direction:column;gap:10px}
-.pending h3{margin:0;font-size:16px;font-weight:500;color:var(--navy)}
-.pending p{margin:0;font-size:13.5px;color:var(--muted)}
-.pending ul{margin:0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:8px}
-.pending li{font-size:13.5px;padding:10px 12px;border-radius:14px;background:var(--glass-strong);border:1px solid var(--line);min-width:0}
-.pending li b{font-weight:500;display:block}
-.pending li span{color:var(--muted);font-size:12.5px}
-.dose{font-size:13.5px;color:var(--muted);display:flex;gap:6px;flex-wrap:wrap;align-items:center}
-.dose strong{color:var(--ink);font-weight:500}
-.flag{font-size:11.5px;padding:1px 8px;border-radius:999px;background:var(--warn-bg);color:var(--warn);white-space:nowrap}
+.days{font-size:13px;color:var(--muted);text-align:right;line-height:1.35}
+.days b{color:var(--ink);font-weight:500}
+.dose{font-size:13.5px;color:var(--muted)}
+.dose strong{color:var(--ink);font-weight:500;margin-right:4px}
+.flag{display:inline-block;font-size:11.5px;padding:1px 8px;border-radius:999px;background:var(--warn-bg);color:var(--warn);white-space:nowrap}
 .props{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:6px;font-size:14px}
 .props li{display:flex;gap:8px;align-items:flex-start}
 .props li::before{content:"";flex:none;width:7px;height:7px;margin-top:8px;border-radius:50%;background:var(--leaf)}
-.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tags{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
 .tag{font-size:12px;padding:2px 9px;border-radius:999px;background:var(--chip);color:var(--muted)}
-.add{margin-top:auto;border:0;font:inherit;font-weight:500;font-size:15px;padding:10px 14px;border-radius:14px;background:var(--btn);color:var(--btn-fg);cursor:pointer;transition:transform .15s,filter .2s;display:flex;align-items:center;justify-content:center;gap:8px}
-.add:hover{filter:brightness(1.1)}
+.c-foot{margin-top:auto;display:flex;flex-direction:column;gap:8px}
+.src{font-size:12px;color:var(--faint);display:flex;justify-content:space-between;gap:8px}
+.src a{color:var(--sky);text-decoration:none}
+.src a:hover{text-decoration:underline}
+.add{border:1px solid transparent;font:inherit;font-weight:500;font-size:15px;padding:10px 14px;border-radius:14px;background:var(--btn);color:var(--btn-fg);cursor:pointer;transition:transform .15s,filter .2s,background .2s,color .2s;display:flex;align-items:center;justify-content:center;gap:8px}
+.add:hover{filter:brightness(1.12)}
 .add:active{transform:scale(.98)}
-.add.in{background:transparent;color:var(--leaf);border:1px solid var(--leaf)}
-.empty{padding:28px;text-align:center;color:var(--muted)}
+.add.in{background:transparent;color:var(--leaf);border-color:var(--leaf)}
+.empty{padding:28px;text-align:center;color:var(--muted);grid-column:1/-1}
 
-/* planner */
 .planner{padding:20px;display:flex;flex-direction:column;gap:14px}
 @media (min-width:1100px){.planner{position:sticky;top:calc(16px + env(safe-area-inset-top,0px));max-height:calc(100vh - 32px);overflow:auto}}
 .planner h2{margin:0;font-size:21px;font-weight:500;color:var(--navy)}
@@ -129,33 +127,33 @@ select{font:inherit;font-size:14px;color:var(--ink);background:var(--glass-stron
 .days-ctl{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
 .days-ctl label{font-size:14px;color:var(--muted)}
 .num{width:76px;font:inherit;font-size:15px;color:var(--ink);background:var(--glass-strong);border:1px solid var(--line);border-radius:10px;padding:6px 8px;text-align:center;font-variant-numeric:tabular-nums}
-.num:focus,select:focus,.chip:focus-visible,.add:focus-visible,.mode button:focus-visible,.x:focus-visible,.ghost:focus-visible{outline:2px solid var(--sky);outline-offset:2px}
+.num:focus,select:focus,.chip:focus-visible,.add:focus-visible,.mode button:focus-visible,.x:focus-visible,.ghost:focus-visible,.fab:focus-visible{outline:2px solid var(--sky);outline-offset:2px}
 .rows{display:flex;flex-direction:column;gap:10px}
-.row{padding:12px;border-radius:16px;background:var(--glass-strong);border:1px solid var(--line);display:flex;flex-direction:column;gap:8px;animation:rise .35s ease both}
+.row{padding:12px;border-radius:16px;background:var(--glass-strong);border:1px solid var(--line);display:flex;flex-direction:column;gap:8px}
+.row.enter{animation:rise .35s ease both}
 .row-h{display:flex;justify-content:space-between;gap:8px;align-items:flex-start}
 .row-h b{font-weight:500;line-height:1.35}
 .x{border:0;background:var(--chip);color:var(--muted);width:28px;height:28px;border-radius:50%;cursor:pointer;flex:none;font:inherit;font-size:16px;line-height:1}
 .row-ctl{display:flex;flex-wrap:wrap;align-items:center;gap:8px;font-size:13.5px;color:var(--muted)}
-.row-ctl .num{width:64px}
-.row-out{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;font-size:12.5px;color:var(--muted)}
-.row-out span b{display:block;font-size:15px;color:var(--ink);font-weight:500;font-variant-numeric:tabular-nums}
-.sum{padding:14px;border-radius:18px;background:linear-gradient(140deg,color-mix(in srgb,var(--sky) 18%,var(--glass-strong)),color-mix(in srgb,var(--leaf) 14%,var(--glass-strong)));border:1px solid var(--glass-line);display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.row-ctl .num{width:68px}
+.row-out{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;font-size:12.5px;color:var(--muted)}
+.row-out b{display:block;font-size:15px;color:var(--ink);font-weight:500;font-variant-numeric:tabular-nums}
+.sum{padding:14px;border-radius:18px;background:linear-gradient(140deg,rgba(40,120,190,.12),rgba(74,138,42,.10)),var(--glass-strong);border:1px solid var(--glass-line);display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .sum div span{display:block;font-size:12.5px;color:var(--muted)}
 .sum div b{font-size:20px;font-weight:600;font-variant-numeric:tabular-nums;color:var(--ink)}
 .sum .hero{grid-column:1/-1}
 .sum .hero b{font-size:32px;color:var(--sky)}
 .ghost{border:1px solid var(--line);background:transparent;color:var(--muted);font:inherit;font-size:13.5px;padding:7px 12px;border-radius:12px;cursor:pointer}
 .plan-empty{padding:16px;text-align:center;color:var(--muted);font-size:14px;border:1px dashed var(--line);border-radius:16px}
-.note{font-size:12.5px;color:var(--faint);line-height:1.5}
+.note{font-size:12.5px;color:var(--faint);line-height:1.5;margin:0}
 
 .fab{position:fixed;right:max(16px,env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:5;border:0;font:inherit;font-weight:500;padding:12px 18px;border-radius:999px;background:var(--btn);color:var(--btn-fg);box-shadow:var(--shadow);cursor:pointer;display:flex;gap:8px;align-items:center}
-.fab .n{background:var(--btn-fg);color:var(--btn);border-radius:999px;min-width:22px;height:22px;display:grid;place-items:center;font-size:13px;padding:0 6px}
+.fab .n{background:var(--btn-fg);color:var(--btn);border-radius:999px;min-width:22px;height:22px;display:grid;place-items:center;font-size:13px;padding:0 6px;font-variant-numeric:tabular-nums}
 @media (min-width:1100px){.fab{display:none}}
 
 footer{padding:18px 22px;font-size:13px;color:var(--muted);display:flex;flex-direction:column;gap:8px}
 footer a{color:var(--sky)}
-footer ul{margin:0;padding-left:18px;columns:2 260px}
-@media (max-width:480px){.price-row .val{font-size:16px}.per-day .big{font-size:24px}}
+@media (max-width:480px){.price-row .val{font-size:16px}.per-day .big{font-size:24px}.row-out{grid-template-columns:1fr 1fr}}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
 </style>
 </head>
@@ -168,7 +166,7 @@ footer ul{margin:0;padding-left:18px;columns:2 260px}
     <div class="brand">
       <span class="eyebrow">Nutrilite · หมวดสุขภาพ</span>
       <h1>แคตตาล็อกนิวทริไลท์</h1>
-      <p>ราคา คุณสมบัติ และค่าใช้จ่ายเฉลี่ยต่อวันของผลิตภัณฑ์เสริมอาหารนิวทริไลท์ พร้อมเครื่องคำนวณปริมาณการกิน</p>
+      <p>ราคา คุณสมบัติ วิธีรับประทาน และค่าใช้จ่ายเฉลี่ยต่อวันของผลิตภัณฑ์นิวทริไลท์ ดึงจาก amway.co.th เมื่อ 10 พ.ย. 2569 พร้อมเครื่องคำนวณปริมาณการกิน</p>
     </div>
     <div class="mode glass" role="group" aria-label="เลือกราคาที่ใช้คำนวณ">
       <button id="mode-member" aria-pressed="true">ราคาสมาชิก</button>
@@ -180,7 +178,7 @@ footer ul{margin:0;padding-left:18px;columns:2 260px}
     <label for="q">อยากดูแลสุขภาพด้านไหน?</label>
     <div class="field">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
-      <input id="q" type="search" autocomplete="off" placeholder="เช่น กระดูก, ผิว, ภูมิคุ้มกัน, ขับถ่าย, โปรตีน, ผู้สูงอายุ">
+      <input id="q" type="search" autocomplete="off" placeholder="เช่น กระดูก, ผิว, นอนหลับ, ลำไส้, ความจำ, ลดน้ำหนัก">
     </div>
     <div class="chips" id="need-chips"><span class="chip-label">ค้นหายอดนิยม</span></div>
   </section>
@@ -191,35 +189,24 @@ footer ul{margin:0;padding-left:18px;columns:2 260px}
     <section aria-label="รายการผลิตภัณฑ์">
       <div class="toolbar">
         <div class="cat-chips" id="cat-chips"></div>
-        <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+        <div class="sortbox">
           <span class="count" id="count"></span>
           <label class="count" for="sort">เรียง</label>
           <select id="sort">
             <option value="perday">ต่อวัน ถูก → แพง</option>
             <option value="perday-desc">ต่อวัน แพง → ถูก</option>
             <option value="price">ราคาต่อชิ้น ถูก → แพง</option>
+            <option value="days">กินได้นานที่สุด</option>
             <option value="name">ชื่อ ก → ฮ</option>
           </select>
         </div>
       </div>
       <div class="grid" id="grid"></div>
-      <div class="pending glass">
-        <h3>สินค้าที่ยังไม่มีราคายืนยัน</h3>
-        <p>พบข้อมูลสินค้าเหล่านี้บนเว็บไซต์แอมเวย์ แต่ยังหาราคาสมาชิกปัจจุบันจากแหล่งทางการไม่ได้ จึงยังไม่ได้คำนวณค่าเฉลี่ยต่อวัน</p>
-        <ul>
-          <li><b>โคคิวเท็น พลัส</b><span>60 แคปซูล · โคเอนไซม์ คิวเท็น แอล-คาร์นิทีน ทอรีน ซิตรัส ไบโอฟลาโวนอยด์</span></li>
-          <li><b>เลส-เตอรอล</b><span>60 แคปซูล · วันละ 2 แคปซูล · สารสกัดชาเขียว เลซิตินถั่วเหลือง วิตามินอี</span></li>
-          <li><b>แคลโลว์</b><span>90 เม็ด · วันละ 2 เม็ด พร้อมอาหาร · สารสกัดถั่วขาว ถั่วเหลือง พาร์สลีย์</span></li>
-          <li><b>กรีน-ที พลัส</b><span>60 เม็ด · สารสกัดชาเขียว (EGCG) และสาหร่ายสีน้ำตาล</span></li>
-          <li><b>พริมโรส พลัส</b><span>สำหรับผู้หญิง · ราคาสมาชิกประมาณ ฿1,055 (คำนวณจากโปรโมชั่น พ.ค. 2568) ยังไม่ทราบขนาดบรรจุ</span></li>
-          <li><b>ซุปผงกลิ่นเห็ดและพริกไทยดำ</b><span>ราคาสมาชิก ฿1,950 · ขายปลีก ฿2,145 · ยังไม่ทราบจำนวนซองต่อกล่อง</span></li>
-        </ul>
-      </div>
     </section>
 
     <aside class="planner glass" id="planner" aria-label="เครื่องคำนวณปริมาณการกิน">
       <h2>แผนการกินของฉัน</h2>
-      <p class="sub">ปรับจำนวนต่อวันและระยะเวลา ระบบจะคำนวณจำนวนที่ต้องกิน จำนวนแพ็กที่ต้องซื้อ และค่าใช้จ่าย</p>
+      <p class="sub">ปรับจำนวนต่อวันและระยะเวลา ระบบจะคำนวณจำนวนที่ต้องกิน จำนวนชิ้นที่ต้องซื้อ และค่าใช้จ่าย</p>
       <div class="days-ctl">
         <label for="days">ระยะเวลา</label>
         <input class="num" id="days" type="number" min="1" max="730" value="30" inputmode="numeric">
@@ -234,36 +221,14 @@ footer ul{margin:0;padding-left:18px;columns:2 260px}
         <button class="ghost" id="clear">ล้างแผน</button>
         <button class="ghost" id="sample">โหลดแผนตัวอย่าง</button>
       </div>
-      <p class="note">“เฉลี่ย” คิดตามจำนวนที่กินจริง ส่วน “ต้องซื้อ” คิดเป็นแพ็กเต็ม ปริมาณที่มีป้าย “ตรวจฉลาก” เป็นค่าตั้งต้นโดยประมาณ ควรยึดตามฉลากบนบรรจุภัณฑ์</p>
+      <p class="note">“เฉลี่ย” คิดตามจำนวนที่กินจริง ส่วน “ต้องซื้อ” คิดเป็นชิ้นเต็ม ปริมาณตั้งต้นมาจากวิธีรับประทานบนเว็บแอมเวย์ ป้าย “ตรวจฉลาก” คือค่าที่เว็บไม่ได้ระบุ ควรยึดตามฉลากจริง</p>
     </aside>
   </div>
 
   <footer class="glass">
     <strong style="color:var(--ink);font-weight:500">ที่มาของข้อมูลและข้อควรทราบ</strong>
-    <span>ราคาสมาชิกรวบรวมจากหน้าโปรโมชั่นและบทความบน amway.co.th และข่าวเปิดตัวสินค้าของแอมเวย์ (ปี 2563–2569) แต่ละการ์ดระบุเดือนของข้อมูลราคาไว้ ราคาอาจเปลี่ยนแปลงได้ ควรตรวจสอบที่แอมเวย์ ช็อป หรือ 0-2725-8000 ก่อนสั่งซื้อ ราคาขายปลีกที่มีเครื่องหมาย ≈ คำนวณจากราคาสมาชิก +10% ตามสัดส่วนที่แอมเวย์ใช้กับสินค้าอื่น หน้านี้ไม่ใช่เว็บไซต์ทางการของแอมเวย์</span>
+    <span>ราคาขายปลีก ขนาดบรรจุ ส่วนประกอบ และวิธีรับประทาน ดึงจากหน้าสินค้าบน <a href="https://amway.co.th/category/supplements" target="_blank" rel="noopener">amway.co.th</a> เมื่อ 10 พ.ย. 2569 (ยกเว้นกลูโคซามีน ซึ่งเป็นผลิตภัณฑ์ยาและไม่แสดงบนหน้าร้านออนไลน์ ใช้ราคาจากศูนย์ช่วยเหลือแอมเวย์) ราคาสมาชิกคำนวณจากราคาขายปลีก ÷ 1.1 ซึ่งตรงกับราคาสมาชิกที่แอมเวย์ประกาศสำหรับสินค้าที่ตรวจสอบได้ ไม่รวมโปรโมชั่นและชุดสินค้า ราคาอาจเปลี่ยนแปลง ควรตรวจสอบอีกครั้งก่อนสั่งซื้อ หน้านี้ไม่ใช่เว็บไซต์ทางการของแอมเวย์</span>
     <span>ผลิตภัณฑ์เสริมอาหารไม่มีผลในการป้องกันหรือรักษาโรค เด็กและสตรีมีครรภ์ไม่ควรรับประทาน ผู้ที่ใช้ยาประจำควรปรึกษาแพทย์หรือเภสัชกร คำแนะนำจากการค้นหาเป็นข้อมูลทั่วไป ไม่ใช่คำแนะนำทางการแพทย์</span>
-    <ul>
-      <li><a href="https://amway.co.th/promotions/feb-2026-doublex" target="_blank" rel="noopener">ดับเบิ้ล เอ็กซ์ (ก.พ. 69)</a></li>
-      <li><a href="https://amway.co.th/promotions/mar-2026-calmagd" target="_blank" rel="noopener">แคล แมก ดี (มี.ค. 69)</a></li>
-      <li><a href="https://amway.co.th/promotions/oct-2026-vitdk" target="_blank" rel="noopener">วิตามินดี3 + เค2 (ต.ค. 69)</a></li>
-      <li><a href="https://amway.co.th/en/product/nutrilite-vitamin-d3-k2/341899" target="_blank" rel="noopener">วิตามินดี3 + เค2 หน้าสินค้า</a></li>
-      <li><a href="https://amway.co.th/product/109745TH" target="_blank" rel="noopener">ไบโอซี พลัส หน้าสินค้า</a></li>
-      <li><a href="https://www.amway.co.th/pro-may-2025-woman" target="_blank" rel="noopener">คอลลาเจน (พ.ค. 68)</a></li>
-      <li><a href="https://achieve.amway.co.th/th/business-articles/nutrilite-collagen" target="_blank" rel="noopener">ส่วนประกอบคอลลาเจน</a></li>
-      <li><a href="https://www.thairath.co.th/lifestyle/health-and-beauty/2699731" target="_blank" rel="noopener">ออล แพลนท์ โปรตีน (ไทยรัฐ)</a></li>
-      <li><a href="https://www.achieve.amway.co.th/th/business-articles/amway-nutrilite-all-plant-protein-plus" target="_blank" rel="noopener">ออล แพลนท์ โปรตีน พลัส</a></li>
-      <li><a href="https://amway.co.th/articles/nutrilite-begin-and-fiber-powder-plus" target="_blank" rel="noopener">บีกิน และไฟเบอร์ พาวเดอร์ พลัส</a></li>
-      <li><a href="https://amway.co.th/promotions/sep-2025-garlic" target="_blank" rel="noopener">การ์ลิค (ก.ย. 68)</a></li>
-      <li><a href="https://support.amway.co.th/hc/th/articles/22739730496660" target="_blank" rel="noopener">กลูโคซามีน (ศูนย์ช่วยเหลือ)</a></li>
-      <li><a href="https://www.the-perspective.co/amway-nutrilite-triple-omega/" target="_blank" rel="noopener">ทริปเปิล โอเมก้า (พ.ย. 67)</a></li>
-      <li><a href="https://thereporter.asia/2020/05/nutrilite/" target="_blank" rel="noopener">วิตามินบี พลัส (พ.ค. 63)</a></li>
-      <li><a href="https://www.ryt9.com/s/prg/3288536" target="_blank" rel="noopener">โพรไบโอติก ดับเบิ้ลยู (ม.ค. 65)</a></li>
-      <li><a href="https://siamrath.co.th/press-release/157280" target="_blank" rel="noopener">โพรไบโอติก มายด์ (มิ.ย. 69)</a></li>
-      <li><a href="https://kaoupdate.com/2024/09/16/72579-nutrilite-post-b/" target="_blank" rel="noopener">โพส-บี (ก.ย. 67)</a></li>
-      <li><a href="https://www.banmuang.co.th/news/marketing/337013" target="_blank" rel="noopener">หลินจือ เฮอร์บัล พลัส และจูจูบี ไนท์ (ก.ค. 66)</a></li>
-      <li><a href="https://kaoupdate.com/2025/08/25/89232-bodykey-challenge-11th/" target="_blank" rel="noopener">บอดี้คีย์ สูตรใหม่ (ส.ค. 68)</a></li>
-      <li><a href="https://amway.co.th/en/articles/health1-dec-2024-4" target="_blank" rel="noopener">ซุปผงกลิ่นเห็ด (ธ.ค. 67)</a></li>
-    </ul>
   </footer>
 </div>
 
@@ -276,237 +241,337 @@ const ICONS={
   sachet:'<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M6 3h12v18H6z"/><path d="M6 6.5h12M6 17.5h12" stroke-dasharray="1.5 1.5"/><path d="M10 11.5h4"/></svg>',
   can:'<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><ellipse cx="12" cy="5.5" rx="6" ry="2.2"/><path d="M6 5.5v13c0 1.2 2.7 2.2 6 2.2s6-1 6-2.2v-13"/><path d="M6 10h12M6 14.5h12" opacity=".5"/></svg>'
 };
-const CATS={vitamin:'วิตามินและแร่ธาตุ',bone:'กระดูกและข้อ',heart:'หัวใจและหลอดเลือด',beauty:'ผิวพรรณ',protein:'โปรตีน',weight:'ควบคุมน้ำหนัก',digest:'ลำไส้และการขับถ่าย',rest:'พักผ่อน',herbal:'สารสกัดธรรมชาติ'};
-const WHEN={doublex:'ก.พ. 2569',begin:'ก.ย. 2569',calmagd:'มี.ค. 2569',d3k2:'ต.ค. 2569',glucosamine:'2569',bioc:'เม.ย. 2568',collagen:'พ.ค. 2568',allplant:'ม.ค. 2569',allplantplus:'พ.ค. 2566',fiber:'ส.ค. 2569',garlic:'ก.ย. 2568',omega:'พ.ย. 2567',vitb:'พ.ค. 2563',probw:'ม.ค. 2565',probmind:'มิ.ย. 2569',postb:'ก.ย. 2567',lingzhi:'ก.ค. 2566',jujube:'ก.ค. 2566',bodykey:'ส.ค. 2568'};
-const OLD_PRICE=new Set(['vitb','probw','lingzhi','jujube','allplantplus']);
+const CATS={base:'วิตามินพื้นฐาน',immune:'ภูมิคุ้มกัน',bone:'กระดูกและข้อ',heart:'หัวใจและหลอดเลือด',beauty:'ผิวพรรณและผู้หญิง',protein:'โปรตีน',weight:'ควบคุมน้ำหนัก',digest:'ลำไส้และการขับถ่าย',brain:'สมองและการพักผ่อน',herbal:'สมุนไพรและไฟโตนิวเทรียนท์',pack:'แพ็กรายวัน'};
 
-// doseFlag: 'label' = from Amway page/label; 'check' = approximate default, verify with label; 'user' = set by user (medicine)
+/* Data from amway.co.th product pages, 10 Nov 2026.
+   units = how many dose-units per piece; dose = units per day (null = set by user)
+   doseFlag: label = stated on the Amway page; check = not stated, verify label; user = viewer sets it */
 const P=[
- {id:'doublex',name:'ดับเบิ้ล เอ็กซ์ ไฟโตเบลนด์',en:'Double X Phyto Blend',cat:'vitamin',form:'tablet',pack:'ชนิดเติม 31 วัน · 186 เม็ด',units:186,unit:'เม็ด',dose:6,doseFlag:'label',
-  doseText:'วิตามินรวม เกลือแร่รวม สารสกัดจากพืช อย่างละ 1 เม็ด วันละ 2 ครั้ง',member:2364,retail:2600,retailApprox:false,
-  props:['วิตามินรวม เกลือแร่รวม และสารสกัดจากพืชครบใน 1 ชุด แยก 3 เม็ดต่อมื้อ','สารสกัดจากพืชหลายชนิด เช่น ขมิ้นชัน โรสแมรี ส้ม เกรปฟรุต องุ่น บลูเบอร์รี อะเซโรลา ผักโขม อัลฟัลฟา','บรรจุซองสุญญากาศกันอากาศ ช่วยเก็บรักษาสารอาหาร','ไม่ใช้สี กลิ่นรส หรือวัตถุกันเสียสังเคราะห์'],
-  tags:['วิตามินรวม','พื้นฐานประจำวัน']},
- {id:'begin',name:'นิวทริไลท์ บีกิน',en:'Nutrilite Begin',cat:'vitamin',form:'sachet',pack:'30 ซอง',units:30,unit:'ซอง',dose:1,doseFlag:'label',
-  doseText:'วันละ 1 ซอง',member:2150,retail:2365,retailApprox:false,
-  props:['ส่วนผสมจากธรรมชาติ 30 ชนิดในซองเดียว','ออกแบบเป็นจุดเริ่มต้นดูแลตัวเองทุกเช้า','สินค้าใหม่ เริ่มจำหน่าย 1 ก.ย. 2569'],
-  tags:['สินค้าใหม่','เริ่มต้นดูแลตัวเอง']},
- {id:'calmagd',name:'แคล แมก ดี',en:'Cal Mag D',cat:'bone',form:'tablet',pack:'180 เม็ด',units:180,unit:'เม็ด',dose:2,doseFlag:'check',
-  doseText:'วันละ 2 เม็ด พร้อมอาหาร',member:1077,
-  props:['แคลเซียม แมกนีเซียม และวิตามินดีในเม็ดเดียว','เสริมเกลือแร่ สังกะสี ทองแดง แมงกานีส','มีสารสกัดอัลฟัลฟาจากฟาร์มเอล เพทาคาลของนิวทริไลท์ ประเทศเม็กซิโก','วิตามินดีช่วยการดูดซึมแคลเซียม'],
-  tags:['กระดูก','แคลเซียม']},
- {id:'d3k2',name:'วิตามินดี3 + เค2',en:'Vitamin D3 + K2',cat:'bone',form:'softgel',pack:'30 ซอฟต์เจล',units:30,unit:'แคปซูล',dose:1,doseFlag:'label',
-  doseText:'วันละ 1 แคปซูล',member:990,retail:1090,retailApprox:false,
-  props:['วิตามินดี3 400 IU และวิตามินเค2 50 ไมโครกรัมต่อแคปซูล','วิตามินดีและวิตามินเคมีส่วนช่วยคงสภาพปกติของกระดูก','วิตามินดีช่วยคงระดับแคลเซียมในเลือดและการทำงานปกติของภูมิคุ้มกัน','ผู้ที่ใช้ยาต้านการแข็งตัวของเลือดควรปรึกษาแพทย์ก่อน (วิตามินเคเกี่ยวกับการแข็งตัวของเลือด)'],
-  tags:['สินค้าใหม่','กระดูก','ภูมิคุ้มกัน']},
- {id:'glucosamine',name:'กลูโคซามีน',en:'Glucosamine',cat:'bone',form:'softgel',pack:'120 แคปซูล',units:120,unit:'แคปซูล',dose:null,doseFlag:'user',
-  doseText:'ผลิตภัณฑ์ยา ใช้ตามฉลากหรือคำแนะนำของเภสัชกร',member:1515,
-  props:['ขึ้นทะเบียนเป็นผลิตภัณฑ์ยา ไม่ใช่อาหารเสริม','มีขนาดเดียว คือขวด 120 แคปซูล','ราคาในรายการคิดต่อแคปซูล กรอกจำนวนต่อวันตามฉลากในแผนการกิน'],
-  tags:['ข้อ','ยา']},
- {id:'bioc',name:'ไบโอซี พลัส',en:'Bio C Plus',cat:'vitamin',form:'tablet',pack:'60 เม็ด',units:60,unit:'เม็ด',dose:1,doseFlag:'check',
-  doseText:'วันละ 1 เม็ด',member:990,retail:1090,retailApprox:false,
-  props:['วิตามินซีจากอะเซโรลา เชอร์รี','วิตามินซีมีส่วนช่วยปกป้องเซลล์จากอนุมูลอิสระ','ช่วยให้หลอดเลือดแข็งแรง','ช่วยในการสร้างคอลลาเจนเพื่อการทำงานปกติของผิวหนัง'],
-  tags:['วิตามินซี','ภูมิคุ้มกัน','ผิว']},
- {id:'collagen',name:'คอลลาเจน',en:'Collagen',cat:'beauty',form:'sachet',pack:'30 ซอง',units:30,unit:'ซอง',dose:1,doseFlag:'label',
-  doseText:'วันละ 1 ซอง',member:1650,
-  props:['ไฮโดรไลซ์คอลลาเจนจากปลาทะเล 1,620 มก. ต่อซอง','ผงเปปไทด์จากถั่วเหลือง 1,207.5 มก. ต่อซอง','ชนิดผงชงดื่ม พกพาง่าย'],
-  tags:['ผิว','ความงาม']},
- {id:'allplant',name:'ออล แพลนท์ โปรตีน',en:'All Plant Protein 450 g',cat:'protein',form:'can',pack:'กระป๋อง 450 กรัม · ประมาณ 45 หน่วยบริโภค',units:45,unit:'หน่วยบริโภค',dose:1,doseFlag:'check',
-  doseText:'วันละ 1 หน่วยบริโภค (ประมาณ 10 กรัม)',member:1290,
-  props:['โปรตีนสกัดจากพืช 3 ชนิด: ถั่วเหลือง ข้าวสาลี ถั่วลันเตา','ให้กรดอะมิโนจำเป็นครบ 9 ชนิด','โปรตีน 86.7 กรัมต่อผง 100 กรัม','ปราศจากโคเลสเตอรอล ผสมน้ำหรืออาหารได้'],
-  tags:['โปรตีนพืช','กล้ามเนื้อ']},
- {id:'allplantplus',name:'ออล แพลนท์ โปรตีน พลัส',en:'All Plant Protein Plus 450 g',cat:'protein',form:'can',pack:'กระป๋อง 450 กรัม · ประมาณ 45 หน่วยบริโภค',units:45,unit:'หน่วยบริโภค',dose:1,doseFlag:'check',
-  doseText:'วันละ 2 ช้อนตวง ผสมน้ำ 200 มล.',member:1500,retail:1650,retailApprox:false,
-  props:['โปรตีนจากถั่วเหลือง ข้าวสาลี และถั่วลันเตา','เพิ่มดูอัลเปปไทด์และผงอโลเวรา','ไม่มีน้ำตาลและแลคโตส','ให้โปรตีนประมาณ 8 กรัมต่อหน่วยบริโภค'],
-  tags:['โปรตีนพืช','ไม่มีแลคโตส']},
- {id:'fiber',name:'ไฟเบอร์ พาวเดอร์ พลัส',en:'Fiber Powder Plus',cat:'digest',form:'sachet',pack:'30 ซอง',units:30,unit:'ซอง',dose:2,doseFlag:'label',
-  doseText:'วันละ 2 ซอง อย่างสม่ำเสมอ',member:1700,retail:1870,retailApprox:false,
-  props:['ใยอาหารจากพืช: มันสำปะหลังและกัมอะราบิก','ใยอาหารช่วยเพิ่มกากในระบบทางเดินอาหาร','ช่วยกระตุ้นการขับถ่าย','สูตรใหม่ ปริมาณมากกว่าเดิม (ส.ค. 2569)'],
-  tags:['ขับถ่าย','ใยอาหาร']},
- {id:'garlic',name:'การ์ลิค',en:'Garlic',cat:'herbal',form:'tablet',pack:'150 เม็ด',units:150,unit:'เม็ด',dose:1,doseFlag:'check',
-  doseText:'วันละ 1 เม็ด',member:1195,
-  props:['กระเทียมอัดเม็ด มีสารอัลลิซินจากกระเทียม','เม็ดเคลือบละลายในลำไส้ ช่วยลดกลิ่นกระเทียม','บรรจุ 150 เม็ด กินได้นาน'],
-  tags:['กระเทียม','หัวใจ']},
- {id:'omega',name:'ทริปเปิล โอเมก้า',en:'Triple Omega',cat:'heart',form:'softgel',pack:'30 แคปซูล',units:30,unit:'แคปซูล',dose:1,doseFlag:'label',
-  doseText:'วันละ 1 แคปซูล พร้อมมื้ออาหาร',member:975,retail:1075,retailApprox:false,
-  props:['น้ำมันปลา 744 มก. ต่อแคปซูล ให้ EPA 286 มก. และ DHA 214 มก.','น้ำมันเมล็ดเจีย 20 มก.','วิตามินอี (ดี-แอลฟา โทโคฟีรอล) 16.6 มก.','ให้กรดไขมันกลุ่มโอเมก้า-3'],
-  tags:['น้ำมันปลา','โอเมก้า-3','หัวใจ']},
- {id:'vitb',name:'วิตามินบี พลัส',en:'Vitamin B Plus',cat:'vitamin',form:'tablet',pack:'60 เม็ด',units:60,unit:'เม็ด',dose:1,doseFlag:'label',
-  doseText:'วันละ 1 เม็ด พร้อมอาหาร',member:480,retail:530,retailApprox:false,
-  props:['วิตามินบีจำเป็นครบ 8 ชนิด: B1 B2 B3 B5 B6 ไบโอติน โฟลิก B12','มีผงยีสต์ 75 มก. ต่อเม็ด','เม็ดเคลือบ 2 ชั้น','ไม่ใช้สี กลิ่นรส หรือวัตถุกันเสีย'],
-  tags:['วิตามินบี','พลังงาน']},
- {id:'probw',name:'โพรไบโอติก ดับเบิ้ลยู',en:'Probiotic W',cat:'digest',form:'sachet',pack:'30 ซอง (ซองละ 2 กรัม)',units:30,unit:'ซอง',dose:1,doseFlag:'label',
-  doseText:'วันละ 1 ซอง ผสมน้ำอุณหภูมิห้อง 150 มล. ดื่มภายใน 5 นาที',member:1500,retail:1650,retailApprox:false,
-  props:['Lactobacillus rhamnosus 6.0 × 10⁹ CFU และ L. acidophilus 4.4 × 10⁹ CFU ต่อซอง','มีอินูลินและฟรุกโตโอลิโกแซกคาไรด์ (พรีไบโอติก)','ผงแครนเบอร์รี 60 มก. ต่อซอง','ไม่ควรผสมกับอาหารหรือเครื่องดื่มร้อน'],
-  tags:['โพรไบโอติก','ผู้หญิง','ลำไส้']},
- {id:'probmind',name:'โพรไบโอติก มายด์',en:'Probiotic Mind',cat:'digest',form:'softgel',pack:'30 แคปซูล',units:30,unit:'แคปซูล',dose:1,doseFlag:'label',
-  doseText:'วันละ 1 แคปซูล',member:1650,retail:1815,retailApprox:false,
-  props:['โพรไบโอติก 2 สายพันธุ์: L. paracasei (LPC-37™) และ B. animalis lactis (B420™)','ผงเมลอนออร์แกนิกที่มีเอนไซม์ซูเปอร์ออกไซด์ดิสมิวเทส (SOD)','ผลิตในโรงงานมาตรฐาน GMP','สินค้าใหม่ มิ.ย. 2569'],
-  tags:['สินค้าใหม่','โพรไบโอติก','ลำไส้']},
- {id:'postb',name:'โพส-บี',en:'Post-B',cat:'digest',form:'softgel',pack:'60 แคปซูล',units:60,unit:'แคปซูล',dose:2,doseFlag:'label',
-  doseText:'วันละ 2 แคปซูล',member:1650,retail:1815,retailApprox:false,
-  props:['จุลินทรีย์ชนิดไม่มีชีวิต (โพสต์ไบโอติก) สายพันธุ์ B. lactis CECT8145','วัตถุดิบธรรมชาติ: กีวีสีทองจากนิวซีแลนด์ และแครอทม่วง','วิตามินบี 2 มีส่วนช่วยการทำงานปกติของระบบประสาท','วิตามินบี 5 มีส่วนช่วยกระบวนการสร้างพลังงานตามปกติ'],
-  tags:['โพสต์ไบโอติก','ลำไส้']},
- {id:'lingzhi',name:'หลินจือ เฮอร์บัล พลัส',en:'Lingzhi Herbal Plus',cat:'herbal',form:'tablet',pack:'60 เม็ด',units:60,unit:'เม็ด',dose:2,doseFlag:'label',
-  doseText:'ครั้งละ 1 เม็ด วันละ 2 ครั้ง',member:800,retail:880,retailApprox:false,
-  props:['สารสกัดเห็ดหลินจือออร์แกนิก ให้เบต้ากลูแคน 7.98 มก.','ผงซีบัคธอร์น','ผงน้ำเอลเดอร์เบอร์รี'],
-  tags:['หลินจือ','สมุนไพร']},
- {id:'jujube',name:'จูจูบี ไนท์',en:'Jujube Nite',cat:'rest',form:'tablet',pack:'60 เม็ด',units:60,unit:'เม็ด',dose:1,doseFlag:'label',
-  doseText:'วันละ 1 เม็ด ก่อนนอน',member:1200,retail:1320,retailApprox:false,
-  props:['สารสกัดจากเมล็ดพุทราจีน (Jujube)','มีกาบา (GABA, gamma-aminobutyric acid)','ออกแบบให้รับประทานก่อนนอน'],
-  tags:['ก่อนนอน','พักผ่อน']},
- {id:'bodykey',name:'บอดี้คีย์ บาย นิวทริไลท์',en:'BodyKey Meal Replacement',cat:'weight',form:'sachet',pack:'14 ซอง (ซองละ 51 กรัม) · กาแฟ เบอร์รี ชานมกล้วย โกโก้',units:14,unit:'ซอง',dose:1,doseFlag:'label',
-  doseText:'วันละ 1–2 ครั้ง แทนมื้ออาหาร ผสมน้ำ 250 มล.',member:1700,retail:1870,retailApprox:false,
-  props:['ผลิตภัณฑ์ทดแทนมื้ออาหาร ให้พลังงานและสารอาหารเหมาะกับ 1 มื้อ','โปรตีนจากพืช (ถั่วเหลือง เมล็ดเจีย) ใยอาหาร วิตามินและแร่ธาตุ','สูตรใหม่ น้ำตาล 6 กรัมต่อซอง','ใยอาหารช่วยเพิ่มกากและกระตุ้นการขับถ่าย'],
-  tags:['ลดน้ำหนัก','แทนมื้ออาหาร']}
+ {id:'doublex',sku:'121695TH',name:'ดับเบิ้ล เอ็กซ์ ไฟโตเบลนด์',en:'Double X Phyto Blend',cat:'base',form:'tablet',pack:'186 เม็ด · ชุด 31 วัน',units:186,unit:'เม็ด',dose:6,doseFlag:'label',doseText:'วิตามินรวม เกลือแร่รวม สารสกัดจากพืช อย่างละ 1 เม็ด วันละ 2 ครั้ง',retail:2600,
+  props:['วิตามินรวม เกลือแร่รวม และสารสกัดไฟโตนิวเทรียนท์จากผัก ผลไม้ และสมุนไพร','วิตามินรวม 1 เม็ด: แคลเซียม 175 มก. แมกนีเซียม 60 มก. เบต้าแคโรทีน ลูทีน ไลโคปีน วิตามินบีรวม','เกลือแร่รวมมี AWPS คอมเพล็กซ์ (พาร์สลีย์ ผักโขม อัลฟัลฟา วอเตอร์เครส)','ไม่เจือสี ไม่แต่งกลิ่นรส ไม่ใช้วัตถุกันเสีย'],tags:['วิตามินรวม','ยอดนิยม']},
+ {id:'begin',sku:'128589TH',name:'บีกิน',en:'Nutrilite Begin',cat:'base',form:'sachet',pack:'30 ซอง (ซองละ 8 กรัม)',units:30,unit:'ซอง',dose:1,doseFlag:'label',doseText:'วันละ 1 ซอง',retail:2365,
+  props:['ส่วนผสมจากธรรมชาติ 30 ชนิด เช่น สไปรูลิน่า ผงน้ำใบข้าวสาลี มัทฉะ สับปะรด มะขามป้อม บีทรูท','ใยอาหารจากอินูลินรากชิโครีและรีซิสแทนท์มอลโทเดกซ์ทริน','จุลินทรีย์ไม่มีชีวิต L. plantarum L-137 และ B. longum ES1'],tags:['ใหม่','ผักผลไม้']},
+ {id:'vitb',sku:'122304TH',name:'วิตามินบี พลัส',en:'Vitamin B Plus',cat:'base',form:'tablet',pack:'60 เม็ด',units:60,unit:'เม็ด',dose:1,doseFlag:'label',doseText:'วันละ 1 เม็ด',retail:580,
+  props:['วิตามินบีครบ 8 ชนิด: B1 B2 B3 B5 B6 ไบโอติน โฟลิก B12','ผงยีสต์ 75 มก. ต่อเม็ด','เม็ดเคลือบสองชั้น'],tags:['วิตามินบี','ประหยัด']},
+ {id:'orange',sku:'118891TH',name:'ไฟโตมิกซ์ พาวเดอร์ ออเรนจ์-เอ็ม',en:'PhytoMix Powder Orange-M',cat:'base',form:'can',pack:'360 กรัม · 45 ช้อนตวง',units:45,unit:'ช้อนตวง',dose:1,doseFlag:'label',doseText:'วันละ 1 ช้อนตวง (8 กรัม) ผสมน้ำ 250 มล.',retail:1525,
+  props:['วิตามินบี 8 ชนิดและวิตามินซี','เรดออเรนจ์คอมเพล็กซ์จากส้มสีแดงเทือกเขาเอทนา ซิซิลี','ชงดื่มระหว่างวัน แต่งกลิ่นธรรมชาติ'],tags:['เครื่องดื่ม','วิตามินบี']},
+ {id:'lemon',sku:'118892TH',name:'ไฟโตมิกซ์ พาวเดอร์ เลมอน-บี',en:'PhytoMix Powder Lemon-B',cat:'base',form:'can',pack:'360 กรัม · 45 ช้อนตวง',units:45,unit:'ช้อนตวง',dose:1,doseFlag:'label',doseText:'วันละ 1 ช้อนตวง (8 กรัม) ผสมน้ำ 250 มล.',retail:1525,
+  props:['วิตามินบี 8 ชนิด วิตามินซี และใยอาหาร','น้ำผลไม้ชนิดผง: เลมอน ซีบัคธอร์น สับปะรด ทับทิม','ชงดื่มระหว่างวัน แต่งกลิ่นธรรมชาติ'],tags:['เครื่องดื่ม']},
+ {id:'spinach',sku:'A5924TH',name:'สปิแนช พลัส',en:'Spinach Plus',cat:'base',form:'tablet',pack:'120 เม็ด',units:120,unit:'เม็ด',dose:1,doseFlag:'label',doseText:'วันละ 1 เม็ด พร้อมอาหาร',retail:700,
+  props:['แคลเซียมจากผงเปลือกหอยนางรม 118 มก. ต่อเม็ด','ผงผักโขม 152 มก. และกรดโฟลิก 0.17 มก.','เหล็กและกรดโฟลิกมีส่วนช่วยสร้างเม็ดเลือดแดงตามปกติ'],tags:['โฟลิก','ประหยัด']},
+ {id:'lecithin',sku:'A4445TH',name:'เลซิติน อี',en:'Lecithin E',cat:'base',form:'tablet',pack:'110 เม็ด',units:110,unit:'เม็ด',dose:null,doseFlag:'user',doseText:'เว็บไม่ได้ระบุ ใช้ตามฉลาก',retail:725,
+  props:['เลซิตินจากน้ำมันถั่วเหลือง มีฟอสฟาติดิลโคลีนเป็นส่วนประกอบหลัก','วิตามินอีจากน้ำมันพืช','รสหวาน แต่งกลิ่นน้ำผึ้ง คาร็อบ และเมเปิลวอลนัท'],tags:['เลซิติน']},
+ {id:'iblend',sku:'124321TH',name:'ไอ-เบลนด์ พลัส มัลติ-แคโรทีน',en:'i-Blend Plus Multi-Carotene',cat:'base',form:'tablet',pack:'60 เม็ด',units:60,unit:'เม็ด',dose:null,doseFlag:'user',doseText:'เว็บไม่ได้ระบุ ใช้ตามฉลาก',retail:1650,
+  props:['ลูทีนและซีแซนทีนจากดอกดาวเรือง','เบต้าแคโรทีน ไลโคปีนจากมะเขือเทศ และสังกะสี','วิตามินเอและสังกะสีมีส่วนช่วยคงสภาพปกติของการมองเห็น'],tags:['ดวงตา']},
+
+ {id:'bioc',sku:'109745TH',name:'ไบโอซี พลัส',en:'Bio C Plus',cat:'immune',form:'tablet',pack:'60 เม็ด',units:60,unit:'เม็ด',dose:1,doseFlag:'label',doseText:'วันละ 1 เม็ด',retail:1090,
+  props:['กรดแอสคอร์บิก 567 มก. และผงอะเซโรลา 102 มก. ต่อเม็ด','วิตามินซีช่วยปกป้องเซลล์จากอนุมูลอิสระ','ช่วยสร้างคอลลาเจนเพื่อการทำงานปกติของผิวหนัง'],tags:['วิตามินซี','ยอดนิยม']},
+ {id:'herbalmix',sku:'300475TH',name:'เฮอร์บัล มิกซ์',en:'Herbal Mix',cat:'immune',form:'sachet',pack:'30 ซอง (ซองละ 5 กรัม)',units:30,unit:'ซอง',dose:1,doseFlag:'label',doseText:'วันละ 1 ซอง ชงน้ำอุ่น 100–150 มล.',retail:1815,
+  props:['ผงน้ำอะเซโรลาเชอร์รี 330 มก. ต่อซอง วิตามินซีสูง','สารสกัดชะเอมเทศ 300 มก. และขมิ้นชัน 300 มก.','ซิงค์กลูโคเนต 55 มก. สังกะสีสูง'],tags:['สมุนไพร','สังกะสี']},
+ {id:'acerola',sku:'118893TH',name:'ไฟโตมิกซ์ พาวเดอร์ อะเซโรลา-ซี',en:'PhytoMix Powder Acerola-C',cat:'immune',form:'can',pack:'360 กรัม · 45 ช้อนตวง',units:45,unit:'ช้อนตวง',dose:1,doseFlag:'label',doseText:'วันละ 1 ช้อนตวง (8 กรัม) ผสมน้ำ 250 มล.',retail:1525,
+  props:['อะเซโรลาเข้มข้น 152 มก. ต่อช้อนตวง จากฟาร์มชีวภาพของนิวทริไลท์','วิตามินบี 8 ชนิด วิตามินซี สังกะสี และใยอาหาร','ชงดื่มระหว่างวัน'],tags:['เครื่องดื่ม','วิตามินซี']},
+
+ {id:'calmagd',sku:'117147TH',name:'แคล แมก ดี',en:'Cal Mag D',cat:'bone',form:'tablet',pack:'250 เม็ด',units:250,unit:'เม็ด',dose:2,doseFlag:'label',doseText:'ครั้งละ 1 เม็ด วันละ 2 ครั้ง พร้อมอาหาร',retail:1185,
+  props:['แคลเซียมคาร์บอเนต 586 มก. และแมกนีเซียมออกไซด์ 196 มก. ต่อเม็ด','วิตามินดี 3 สังกะสี ทองแดง แมงกานีส','สารสกัดอัลฟัลฟาเข้มข้น 40 มก.'],tags:['แคลเซียม','ประหยัด']},
+ {id:'d3k2',sku:'341899TH',name:'วิตามินดี3 + เค2',en:'Vitamin D3 + K2',cat:'bone',form:'softgel',pack:'30 แคปซูล',units:30,unit:'แคปซูล',dose:1,doseFlag:'label',doseText:'วันละ 1 แคปซูล',retail:1090,
+  props:['วิตามินดี3 400 IU และวิตามินเค2 50 มคก. ต่อแคปซูล','วิตามินดีและเคมีส่วนช่วยคงสภาพปกติของกระดูก','วิตามินดีช่วยระดับแคลเซียมในเลือดและภูมิคุ้มกันให้ทำงานปกติ','ผู้ใช้ยาต้านการแข็งตัวของเลือดควรปรึกษาแพทย์ก่อน'],tags:['ใหม่','วิตามินดี']},
+ {id:'ostkeeper',sku:'119883TH',name:'ออสคีพเปอร์',en:'Ostkeeper',cat:'bone',form:'tablet',pack:'90 เม็ด',units:90,unit:'เม็ด',dose:3,doseFlag:'label',doseText:'ครั้งละ 3 เม็ด วันละ 1 ครั้ง พร้อมอาหาร',retail:2095,
+  props:['สารสกัดจากผลทับทิม 416.7 มก. ต่อเม็ด','สารสกัดจากเมล็ดองุ่น 18.7 มก. ต่อเม็ด','ไม่เจือสีสังเคราะห์ ไม่แต่งกลิ่นรส ไม่ใช้วัตถุกันเสีย'],tags:['ทับทิม']},
+ {id:'glucosamine',sku:'—',name:'กลูโคซามีน',en:'Glucosamine',cat:'bone',form:'softgel',pack:'120 แคปซูล',units:120,unit:'แคปซูล',dose:null,doseFlag:'user',doseText:'ผลิตภัณฑ์ยา ใช้ตามฉลากหรือคำแนะนำเภสัชกร',member:1515,
+  props:['ขึ้นทะเบียนเป็นผลิตภัณฑ์ยา ไม่แสดงบนหน้าร้านออนไลน์','ราคาสมาชิกจากศูนย์ช่วยเหลือแอมเวย์','กรอกจำนวนต่อวันตามฉลากในแผนการกิน'],tags:['ข้อ','ยา'],url:'https://support.amway.co.th/hc/th/articles/22739730496660'},
+
+ {id:'omega',sku:'126132TH',name:'ทริปเปิล โอเมก้า',en:'Triple Omega',cat:'heart',form:'softgel',pack:'30 แคปซูล',units:30,unit:'แคปซูล',dose:1,doseFlag:'label',doseText:'วันละ 1 แคปซูล พร้อมมื้ออาหาร',retail:1075,
+  props:['น้ำมันปลา 744 มก. ให้ EPA 286 มก. และ DHA 214 มก.','น้ำมันเมล็ดเจีย 20 มก. และวิตามินอี 16.6 มก.','กรดไขมันอิ่มตัว 0 มก.'],tags:['โอเมก้า-3','ยอดนิยม']},
+ {id:'coq10',sku:'101156TH',name:'โคคิวเท็น พลัส',en:'CoQ10 Plus',cat:'heart',form:'softgel',pack:'60 แคปซูล',units:60,unit:'แคปซูล',dose:1,doseFlag:'label',doseText:'วันละ 1 แคปซูล พร้อมอาหาร',retail:2430,
+  props:['โคเอนไซม์ คิวเท็น 29.5 มก. ต่อแคปซูล','แอล-คาร์นิทีน 100 มก. และทอรีน 150 มก.','ซิตรัส ไบโอฟลาโวนอยด์ 25.5 มก.'],tags:['CoQ10','ยอดนิยม']},
+ {id:'garlic',sku:'A5923TH',name:'การ์ลิค',en:'Garlic',cat:'heart',form:'tablet',pack:'150 เม็ด',units:150,unit:'เม็ด',dose:3,doseFlag:'label',doseText:'ครั้งละ 1 เม็ด วันละ 3 ครั้ง หลังอาหาร',retail:1315,
+  props:['ผงกระเทียม 333 มก. ต่อเม็ด','ผงพาร์สลีย์และวอเตอร์เครสอย่างละ 33 มก. ชะเอมสกัด 7 มก.','กลิ่นเปปเปอร์มินต์ ไม่มีกลิ่นกระเทียมรุนแรง'],tags:['กระเทียม']},
+ {id:'lesterol',sku:'102188TH',name:'เลส-เตอรอล',en:'Les-Terol',cat:'heart',form:'softgel',pack:'60 แคปซูล',units:60,unit:'แคปซูล',dose:2,doseFlag:'check',doseText:'วันละ 2 แคปซูล พร้อมอาหาร (จากข่าวเปิดตัว)',retail:1635,
+  props:['สารสกัดจากชาเขียว','เจือสีธรรมชาติ ไม่แต่งกลิ่นรส ไม่ใช้วัตถุกันเสีย'],tags:['ชาเขียว']},
+
+ {id:'collagen',sku:'119293TH',name:'คอลลาเจน',en:'Collagen',cat:'beauty',form:'sachet',pack:'30 ซอง (ซองละ 5 กรัม)',units:30,unit:'ซอง',dose:1,doseFlag:'label',doseText:'วันละ 1 ซอง',retail:1815,
+  props:['ไฮโดรไลซ์คอลลาเจนจากปลาทะเล 1,620 มก. ต่อซอง','ผงเปปไทด์จากถั่วเหลือง 1,207.5 มก. และสารสกัดเก๊กฮวยขาว','กลิ่นสาลี่ สับปะรด พีช หวานด้วยสารสกัดหญ้าหวาน'],tags:['ผิว','ยอดนิยม']},
+ {id:'trumist',sku:'128150TH',name:'ทรูมิสต์ ชนิดเม็ด',en:'TruMist Tablet',cat:'beauty',form:'tablet',pack:'60 เม็ด',units:60,unit:'เม็ด',dose:2,doseFlag:'label',doseText:'วันละ 2 เม็ด ก่อนนอน',retail:2360,
+  props:['ไฟโตอินฟิวส์ คอมเพล็กซ์: สารสกัดวูลฟ์เบอร์รี 76.5 มก. เชอโรกีโรสฮิป 75 มก. เมล็ดองุ่น 50 มก.','ไฟโตเซราไมด์จากข้าวสาลี 15 มก.','วิตามินซีจากอะเซโรลาช่วยสร้างคอลลาเจนเพื่อผิว'],tags:['ใหม่','ผิว']},
+ {id:'trumistp',sku:'128145TH',name:'ทรูมิสต์ ชนิดผง',en:'TruMist Powder',cat:'beauty',form:'sachet',pack:'30 ซอง (ซองละ 8.2 กรัม)',units:30,unit:'ซอง',dose:1,doseFlag:'check',doseText:'วันละ 1 ซอง',retail:1210,
+  props:['ไฟโตเซราไมด์คอมเพล็กซ์จากข้าวสาลี','วิตามินซีจากอะเซโรลาช่วยสร้างคอลลาเจนเพื่อผิว'],tags:['ใหม่','ผิว']},
+ {id:'shn',sku:'101812TH',name:'เอสเอชเอ็น',en:'SHN',cat:'beauty',form:'tablet',pack:'60 เม็ด',units:60,unit:'เม็ด',dose:1,doseFlag:'label',doseText:'วันละ 1 เม็ด พร้อมอาหาร',retail:1240,
+  props:['ไฮโดรไลซ์คอลลาเจน 250 มก. ต่อเม็ด','วิตามินซี 28 มก. และไบโอติน 150 มคก.','สารสกัดเมล็ดองุ่น ไกลซีน และแอล-ซิสเทอีน'],tags:['ผิว ผม เล็บ']},
+ {id:'primrose',sku:'101135TH',name:'พริมโรส พลัส',en:'Primrose Plus',cat:'beauty',form:'softgel',pack:'120 แคปซูล',units:120,unit:'แคปซูล',dose:1,doseFlag:'label',doseText:'วันละ 1 แคปซูล พร้อมอาหาร',retail:1160,
+  props:['น้ำมันอีฟนิงพริมโรส 128 มก. และน้ำมันโบราจ 129 มก. ให้กรดแกมมาไลโนเลนิก','ขิงผง 51 มก. และสารสกัดตังกุย 17 มก.','ซิตรัส ไบโอฟลาโวนอยด์ และเบต้าแคโรทีนจากธรรมชาติ'],tags:['ผู้หญิง']},
+
+ {id:'ap450',sku:'110415TH',name:'ออล แพลนท์ โปรตีน 450 กรัม',en:'All Plant Protein 450 g',cat:'protein',form:'can',pack:'450 กรัม · ประมาณ 22 ช้อนตวง',units:22.5,unit:'ช้อนตวง',dose:2,doseFlag:'label',doseText:'วันละ 2 ช้อนตวง (40 กรัม) ผสมน้ำเย็น 400 มล.',retail:1330,
+  props:['โปรตีนจากถั่วเหลือง ข้าวสาลี ถั่วลันเตา กรดอะมิโนจำเป็นครบ 9 ชนิด','2 ช้อนตวง (40 กรัม) ให้โปรตีน 35 กรัม','0% โคเลสเตอรอล ปราศจากน้ำตาล ไม่มีแลคโตส','มีข้าวสาลีและถั่วเหลือง'],tags:['โปรตีนพืช','ยอดนิยม']},
+ {id:'ap900',sku:'122594TH',name:'ออล แพลนท์ โปรตีน 900 กรัม',en:'All Plant Protein 900 g',cat:'protein',form:'can',pack:'900 กรัม · ประมาณ 45 ช้อนตวง',units:45,unit:'ช้อนตวง',dose:2,doseFlag:'label',doseText:'วันละ 2 ช้อนตวง (40 กรัม) ผสมน้ำเย็น 400 มล.',retail:2530,
+  props:['สูตรเดียวกับขนาด 450 กรัม ต่อกรัมถูกกว่า','2 ช้อนตวง (40 กรัม) ให้โปรตีน 35 กรัม','ไม่มีแลคโตส มีข้าวสาลีและถั่วเหลือง'],tags:['โปรตีนพืช','คุ้มกว่า']},
+ {id:'applus',sku:'126567TH',name:'ออล แพลนท์ โปรตีน พลัส',en:'All Plant Protein Plus',cat:'protein',form:'can',pack:'450 กรัม · ประมาณ 60 ช้อนตวง',units:60,unit:'ช้อนตวง',dose:2,doseFlag:'label',doseText:'วันละ 2 ช้อนตวง (15 กรัม) ผสมน้ำ 200 มล.',retail:1650,
+  props:['โปรตีนจากถั่วเหลือง ข้าวสาลี ถั่วลันเตา','เพิ่มดูอัลเปปไทด์ (ถั่วเหลือง ถั่วลันเตา) และผงอโลเวรา 100.5 มก.','2 ช้อนตวง (15 กรัม) ให้โปรตีน 9 กรัม'],tags:['โปรตีนพืช']},
+ {id:'greentea',sku:'102578TH',name:'กรีนที โปรตีน',en:'Green Tea Protein',cat:'protein',form:'can',pack:'450 กรัม · ประมาณ 16 ช้อนตวง',units:16.07,unit:'ช้อนตวง',dose:2,doseFlag:'label',doseText:'วันละ 2 ช้อนตวง (56 กรัม) ผสมน้ำเย็น 250 มล.',retail:1650,
+  props:['โปรตีนจากถั่วเหลืองและนม ผงชาเขียว','2 ช้อนตวงให้โปรตีน 21 กรัม และแคลเซียม 600 มก.','แคลเซียมช่วยสร้างกระดูกและฟัน','มีถั่วเหลืองและนม'],tags:['แคลเซียมสูง']},
+ {id:'berry',sku:'100325TH',name:'โปรตีน กลิ่นเบอร์รี',en:'Protein Berry',cat:'protein',form:'can',pack:'500 กรัม · 20 ช้อนตวง',units:20,unit:'ช้อนตวง',dose:2,doseFlag:'label',doseText:'วันละ 2 ช้อนตวง (50 กรัม)',retail:1650,
+  props:['โปรตีนจากถั่วเหลือง กรดอะมิโนจำเป็น 9 ชนิด','2 ช้อนตวงให้โปรตีน 19 กรัม และวิตามินซี 70 มก.','อะเซโรลาและผลไม้เข้มข้น (เสาวรส มะม่วงหิมพานต์ ฝรั่ง สับปะรด)','มีถั่วเหลือง ถั่วเปลือกแข็ง และนม'],tags:['วิตามินซี']},
+ {id:'choco',sku:'117580TH',name:'โปรตีน รสช็อกโกแลต',en:'Protein Chocolate',cat:'protein',form:'can',pack:'500 กรัม · ประมาณ 22 ช้อนตวง',units:22.7,unit:'ช้อนตวง',dose:2,doseFlag:'label',doseText:'วันละ 2 ช้อนตวง (44 กรัม) ผสมน้ำเย็น 250 มล.',retail:1650,
+  props:['โปรตีนจากถั่วเหลือง ผงโกโก้ 10.2%','2 ช้อนตวงให้โปรตีน 20 กรัม และแคลเซียม 290 มก.','0% โคเลสเตอรอล ไขมันต่ำ','มีถั่วเหลืองและโปรตีนนม'],tags:['แคลเซียมสูง']},
+
+ {id:'bodykey',sku:'128185TH',name:'บอดี้คีย์ สูตรน้ำตาลน้อยกว่า',en:'BodyKey Meal Replacement',cat:'weight',form:'sachet',pack:'14 ซอง (ซองละ 51 กรัม) · กาแฟ เบอร์รี ชานม กล้วย โกโก้',units:14,unit:'ซอง',dose:1,doseFlag:'label',doseText:'วันละ 1–2 ครั้ง แทนมื้ออาหาร ผสมน้ำ 250 มล.',retail:1870,
+  props:['ทดแทนมื้ออาหาร ให้พลังงานและสารอาหารเหมาะกับ 1 มื้อ','โปรตีนจากพืช (ถั่วเหลือง เมล็ดเจีย) ใยอาหาร วิตามินและแร่ธาตุ','ใยอาหารช่วยเพิ่มกากและกระตุ้นการขับถ่าย','กลิ่นกาแฟมีคาเฟอีน'],tags:['แทนมื้ออาหาร']},
+ {id:'cla',sku:'102567TH',name:'ซีแอลเอ 500',en:'CLA 500',cat:'weight',form:'softgel',pack:'180 แคปซูล',units:180,unit:'แคปซูล',dose:6,doseFlag:'label',doseText:'ครั้งละ 2 แคปซูล วันละ 3 ครั้ง พร้อมอาหาร',retail:3920,
+  props:['CLA 500 มก. ต่อแคปซูล จากน้ำมันดอกคำฝอย','กรดไขมันชนิดไม่อิ่มตัว','เก็บในตู้เย็นหลังเปิด'],tags:['CLA']},
+ {id:'calow',sku:'100193TH',name:'แคลโลว์',en:'Calow',cat:'weight',form:'tablet',pack:'90 เม็ด',units:90,unit:'เม็ด',dose:2,doseFlag:'label',doseText:'วันละ 2 เม็ด พร้อมอาหาร',retail:1445,
+  props:['สารสกัดจากถั่วขาว 183 มก. ต่อเม็ด','โปรตีนถั่วเหลือง 110 มก. และน้ำพาร์สลีย์เข้มข้น 10 มก.'],tags:['ถั่วขาว']},
+ {id:'greent',sku:'117085TH',name:'กรีน-ที พลัส',en:'Green-T Plus',cat:'weight',form:'tablet',pack:'60 เม็ด',units:60,unit:'เม็ด',dose:2,doseFlag:'label',doseText:'ครั้งละ 1 เม็ด วันละ 2 ครั้ง พร้อมอาหาร',retail:1905,
+  props:['สารสกัดจากชาเขียว 51.78 มก. ต่อเม็ด','สารสกัดสาหร่ายสีน้ำตาล 1.79 มก.'],tags:['ชาเขียว']},
+
+ {id:'fiber',sku:'127444TH',name:'ไฟเบอร์ พาวเดอร์ พลัส',en:'Fiber Powder Plus',cat:'digest',form:'sachet',pack:'30 ซอง (ซองละ 8.5 กรัม)',units:30,unit:'ซอง',dose:2,doseFlag:'label',doseText:'ครั้งละ 1 ซอง วันละ 2 ครั้ง พร้อมมื้ออาหาร ดื่มน้ำเพิ่ม 1 แก้ว',retail:1870,
+  props:['ใยอาหาร 7.5 กรัมต่อซอง (30% ของปริมาณที่แนะนำต่อวัน)','ใยอาหารจากมันสำปะหลังและกัมอะราบิก','ช่วยเพิ่มกากในระบบทางเดินอาหารและกระตุ้นการขับถ่าย'],tags:['ใยอาหาร']},
+ {id:'chewfiber',sku:'104402TH',name:'ชูเอเบิ้ล ไฟเบอร์ เบลนด์',en:'Chewable Fiber Blend',cat:'digest',form:'tablet',pack:'60 เม็ด (เม็ดเคี้ยว)',units:60,unit:'เม็ด',dose:null,doseFlag:'user',doseText:'เว็บไม่ได้ระบุ ใช้ตามฉลาก',retail:1285,
+  props:['ใยอาหารจากพืช 11 ชนิด เช่น อะเซโรลา เลมอน กระบองเพชร ข้าวบาร์เลย์ ข้าวโอ๊ต แอปเปิล แครอท','เม็ดเคี้ยว กลิ่นส้มธรรมชาติ'],tags:['ใยอาหาร','เม็ดเคี้ยว']},
+ {id:'probiotic',sku:'120571TH',name:'โพรไบโอติก',en:'Probiotic',cat:'digest',form:'sachet',pack:'30 ซอง (ซองละ 1.5 กรัม)',units:30,unit:'ซอง',dose:1,doseFlag:'label',doseText:'วันละ 1 ซอง ชงน้ำอุณหภูมิห้อง 150 มล. ดื่มภายใน 5 นาที',retail:1815,
+  props:['จุลินทรีย์โพรไบโอติก 5 สายพันธุ์ เช่น B. lactis HN019, L. acidophilus NCFM™','อินูลิน 1,000 มก. ต่อซอง'],tags:['โพรไบโอติก','ยอดนิยม']},
+ {id:'probw',sku:'125341TH',name:'โพรไบโอติก ดับเบิ้ลยู',en:'Probiotic W',cat:'digest',form:'sachet',pack:'30 ซอง (ซองละ 2 กรัม)',units:30,unit:'ซอง',dose:1,doseFlag:'label',doseText:'วันละ 1 ซอง ชงน้ำอุณหภูมิห้อง 150 มล. ดื่มภายใน 5 นาที',retail:1815,
+  props:['โพรไบโอติก 3 สายพันธุ์: L. acidophilus NCFM™, La-14™ และ L. rhamnosus HN001™','อินูลินและฟรุกโตโอลิโกแซกคาไรด์','ผงแครนเบอร์รี 60 มก. ต่อซอง'],tags:['โพรไบโอติก','ผู้หญิง']},
+ {id:'probmind',sku:'126002TH',name:'โพรไบโอติก มายด์',en:'Probiotic Mind',cat:'digest',form:'softgel',pack:'30 แคปซูล',units:30,unit:'แคปซูล',dose:1,doseFlag:'label',doseText:'วันละ 1 แคปซูล',retail:1815,
+  props:['จุลินทรีย์ 18 พันล้านตัวต่อแคปซูล','2 สายพันธุ์: L. paracasei Lpc-37™ และ B. lactis B420™','ผงน้ำเมลอนจากฝรั่งเศส'],tags:['ใหม่','โพรไบโอติก']},
+ {id:'postb',sku:'127620TH',name:'โพส-บี',en:'Post-B',cat:'digest',form:'softgel',pack:'60 แคปซูล',units:60,unit:'แคปซูล',dose:2,doseFlag:'label',doseText:'รับประทาน 2 แคปซูล วันละ 1 ครั้ง',retail:1815,
+  props:['จุลินทรีย์ไม่มีชีวิต B. lactis CECT8145','กีวีสีทองบด (Livaux®) 46 มก. และผงแครอทม่วง 25 มก.','วิตามินบี 2 และบี 5'],tags:['โพสต์ไบโอติก']},
+
+ {id:'jujube',sku:'123126TH',name:'จูจูบี ไนท์',en:'Jujube Nite',cat:'brain',form:'tablet',pack:'60 เม็ด',units:60,unit:'เม็ด',dose:1,doseFlag:'label',doseText:'วันละ 1 เม็ด ก่อนนอน',retail:1320,
+  props:['สารสกัดจากเมล็ดพุทราจีน 150 มก. ต่อเม็ด','กาบา (GABA) 63 มก.','ไม่เจือสี ไม่แต่งกลิ่นรส ไม่ใช้วัตถุกันเสีย'],tags:['ก่อนนอน']},
+ {id:'ginkgo',sku:'A8005TH',name:'กิงโก พลัส',en:'Ginkgo Plus',cat:'brain',form:'softgel',pack:'100 เม็ด',units:100,unit:'เม็ด',dose:1,doseFlag:'label',doseText:'วันละ 1 เม็ด พร้อมอาหาร',retail:1540,
+  props:['น้ำมันปลาทูน่า 274 มก. ให้ DHA 68 มก. และ EPA 16 มก.','สารสกัดใบแป๊ะก๊วย 55 มก. และใบบัวบก 28 มก.','ซิตรัส ไบโอฟลาโวนอยด์ 34 มก.'],tags:['DHA','แป๊ะก๊วย']},
+ {id:'ginseng',sku:'A5985TH',name:'ไซบีเรีย จิงเซง แอนด์ กิงโก บิโลบา',en:'Siberian Ginseng & Ginkgo Biloba',cat:'brain',form:'tablet',pack:'100 เม็ด',units:100,unit:'เม็ด',dose:1,doseFlag:'label',doseText:'วันละ 1 เม็ด พร้อมอาหาร',retail:1430,
+  props:['สารสกัดโสมไซบีเรีย 66.65 มก. ต่อเม็ด','สารสกัดใบแป๊ะก๊วย 33.35 มก. และซิซานดรา 16.65 มก.','อะเซโรลาเชอร์รีและเปปเปอร์มินต์'],tags:['โสม']},
+
+ {id:'lingzhi',sku:'126715TH',name:'หลินจือ เฮอร์บัล พลัส',en:'Lingzhi Herbal Plus',cat:'herbal',form:'tablet',pack:'60 เม็ด',units:60,unit:'เม็ด',dose:2,doseFlag:'label',doseText:'ครั้งละ 1 เม็ด วันละ 2 ครั้ง พร้อมอาหาร',retail:880,
+  props:['สารสกัดเห็ดหลินจือออร์แกนิก 57 มก. (เบต้ากลูแคน 7.98 มก.)','ผงซีบัคธอร์น 20 มก. และผงน้ำเอลเดอร์เบอร์รี 16 มก.'],tags:['หลินจือ','ประหยัด']},
+ {id:'cistanche',sku:'111106TH',name:'ซิสแทนเช',en:'Cistanche',cat:'herbal',form:'tablet',pack:'60 เม็ด',units:60,unit:'เม็ด',dose:2,doseFlag:'label',doseText:'ครั้งละ 1 เม็ด วันละ 2 ครั้ง พร้อมอาหาร',retail:1710,
+  props:['สารสกัดจากรากซิสแทนเช 150 มก. ต่อเม็ด','ไม่เจือสี ไม่แต่งกลิ่นรส ไม่ใช้วัตถุกันเสีย'],tags:['สมุนไพร']},
+ {id:'fruitveg',sku:'102992TH',name:'ผักและผลไม้รวมเข้มข้น',en:'Concentrated Fruits & Vegetables',cat:'herbal',form:'tablet',pack:'60 เม็ด',units:60,unit:'เม็ด',dose:2,doseFlag:'label',doseText:'วันละ 2 เม็ด พร้อมอาหาร',retail:1615,
+  props:['ชาเขียว (EGCG 45 มก.) และเควอซิทิน 121 มก. ต่อเม็ด','สารสกัดทับทิม ส้ม ลูทีนจากดาวเรือง โรสแมรี บลูเบอร์รี','บร็อกโคลี ผักโขม แครอท ไลโคปีนจากมะเขือเทศ'],tags:['ผักผลไม้']},
+ {id:'chewfv',sku:'102179TH',name:'ชูเอเบิ้ล ผักและผลไม้รวมเข้มข้น',en:'Chewable Fruits & Vegetables',cat:'herbal',form:'tablet',pack:'30 เม็ด (เม็ดเคี้ยว)',units:30,unit:'เม็ด',dose:1,doseFlag:'label',doseText:'เคี้ยววันละ 1 เม็ด พร้อมอาหาร',retail:750,
+  props:['เควอซิทิน 49 มก. สารสกัดทับทิม 27.5 มก. ส้ม 23.5 มก. ต่อเม็ด','วิตามินซี ลูทีน ไลโคปีน บลูเบอร์รี','เม็ดเคี้ยว'],tags:['ผักผลไม้','เม็ดเคี้ยว']},
+ {id:'clear',sku:'102735TH',name:'เคลียร์คอมเพล็กซ์',en:'Clear Complex',cat:'herbal',form:'tablet',pack:'180 เม็ด',units:180,unit:'เม็ด',dose:6,doseFlag:'label',doseText:'ครั้งละ 2 เม็ด วันละ 3 ครั้ง ทาน 12 สัปดาห์ให้หยุด 1 สัปดาห์',retail:1605,
+  props:['สารสกัดซินนามอน 75 มก. ต่อเม็ด','ผงพิเคา เพรโต 75 มก. และอะเซโรลา คอนเซ็นเทรต เบลนด์ 75 มก.'],tags:['อบเชย']},
+ {id:'livitox',sku:'127587TH',name:'ลิวิท็อกซ์',en:'Livitox',cat:'herbal',form:'tablet',pack:'60 เม็ด',units:60,unit:'เม็ด',dose:null,doseFlag:'user',doseText:'เว็บไม่ได้ระบุ ใช้ตามฉลาก',retail:1100,
+  props:['สารสกัดจากบร็อกโคลี','สารสกัดจากเมล็ดองุ่นและชะเอมเทศ'],tags:['บร็อกโคลี']},
+
+ {id:'vitalpack',sku:'125566TH',name:'ไวทัล แพ็ค',en:'Vital Pack',cat:'pack',form:'sachet',pack:'30 ซอง (ซองละ 3 เม็ด)',units:30,unit:'ซอง',dose:1,doseFlag:'check',doseText:'วันละ 1 ซอง',retail:2695,
+  props:['ซองเดียวรวม ทริปเปิล โอเมก้า การ์ลิค และโคคิวเท็น พลัส','พกพาง่าย'],tags:['หัวใจ']},
+ {id:'concpack',sku:'125565TH',name:'คอนเซ็นเทรต แพ็ค',en:'Concentrate Pack',cat:'pack',form:'sachet',pack:'30 ซอง (ซองละ 3 เม็ด)',units:30,unit:'ซอง',dose:1,doseFlag:'check',doseText:'วันละ 1 ซอง',retail:1695,
+  props:['ซองเดียวรวม ซิสแทนเช กิงโก พลัส และวิตามินบี พลัส','พกพาง่าย'],tags:['สมอง']},
+ {id:'wpack',sku:'125567TH',name:'ดับเบิ้ลยู แพ็ค',en:'W Pack',cat:'pack',form:'sachet',pack:'30 ซอง (ซองละ 3 เม็ด)',units:30,unit:'ซอง',dose:1,doseFlag:'label',doseText:'วันละ 1 ซอง พร้อมมื้ออาหาร',retail:1695,
+  props:['ซองเดียวรวม พริมโรส พลัส แคล แมก ดี และผักและผลไม้รวมเข้มข้น','ออกแบบสำหรับผู้หญิง'],tags:['ผู้หญิง']}
 ];
-P.forEach(p=>{if(p.retail==null){p.retail=Math.round(p.member*1.1);p.retailApprox=true}});
+P.forEach(p=>{
+  if(p.retail==null){p.retail=Math.round(p.member*1.1);p.retailApprox=true}
+  if(p.member==null)p.member=Math.round(p.retail/1.1);
+  if(!p.url)p.url='https://amway.co.th/product/'+p.sku;
+});
 const byId=Object.fromEntries(P.map(p=>[p.id,p]));
 
 const NEEDS=[
- {label:'กระดูก',words:['กระดูก','กระดูกพรุน','แคลเซียม','bone','calcium','แข็งแรง','ฟัน'],picks:[['calmagd','แคลเซียม แมกนีเซียม วิตามินดีในเม็ดเดียว ราคาต่อวันต่ำ'],['d3k2','วิตามินดีและเคช่วยคงสภาพปกติของกระดูก'],['allplant','โปรตีนพืช เสริมจากอาหารหลัก']]},
- {label:'ข้อเข่า',words:['ข้อ','เข่า','ข้อเข่า','joint','ปวดข้อ','กลูโคซามีน'],picks:[['glucosamine','ผลิตภัณฑ์ยาสำหรับข้อ ใช้ตามคำแนะนำเภสัชกร'],['calmagd','ดูแลกระดูกควบคู่'],['collagen','คอลลาเจนจากปลาทะเล']]},
- {label:'ภูมิคุ้มกัน',words:['ภูมิ','ภูมิคุ้มกัน','หวัด','ป่วยบ่อย','immune','วิตามินซี','vitamin c'],picks:[['bioc','วิตามินซีจากอะเซโรลา เชอร์รี'],['d3k2','วิตามินดีช่วยการทำงานปกติของภูมิคุ้มกัน'],['doublex','วิตามินและแร่ธาตุรวมเป็นพื้นฐาน']]},
- {label:'ผิวสวย',words:['ผิว','สวย','ความงาม','ริ้วรอย','คอลลาเจน','skin','collagen','ผม','เล็บ'],picks:[['collagen','ไฮโดรไลซ์คอลลาเจน 1,620 มก. ต่อซอง'],['bioc','วิตามินซีช่วยสร้างคอลลาเจนเพื่อผิว']]},
- {label:'ขับถ่าย',words:['ขับถ่าย','ท้องผูก','ไฟเบอร์','ใยอาหาร','fiber','ถ่าย'],picks:[['fiber','ใยอาหารช่วยเพิ่มกากและกระตุ้นการขับถ่าย'],['probw','โพรไบโอติก 2 ชนิด พร้อมพรีไบโอติก'],['postb','โพสต์ไบโอติก B. lactis กับกีวีสีทอง']]},
- {label:'ลำไส้',words:['ลำไส้','โพรไบโอติก','จุลินทรีย์','ท้อง','probiotic','gut','โพสต์ไบโอติก'],picks:[['probmind','โพรไบโอติก LPC-37™ และ B420™ วันละแคปซูลเดียว'],['probw','L. rhamnosus และ L. acidophilus พร้อมแครนเบอร์รี'],['postb','จุลินทรีย์ไม่มีชีวิต B. lactis CECT8145'],['fiber','ใยอาหารจากพืช']]},
- {label:'นอนหลับ',words:['นอน','หลับ','นอนไม่หลับ','ก่อนนอน','พักผ่อน','เครียด','sleep','ผ่อนคลาย'],picks:[['jujube','สารสกัดเมล็ดพุทราจีนและ GABA รับประทานก่อนนอน'],['vitb','วิตามินบีจำเป็นครบ 8 ชนิด']]},
- {label:'ลดน้ำหนัก',words:['ลดน้ำหนัก','คุมน้ำหนัก','อ้วน','ไดเอท','diet','แทนมื้อ','น้ำหนัก','หุ่น'],picks:[['bodykey','ทดแทนมื้ออาหาร น้ำตาล 6 กรัมต่อซอง'],['allplantplus','โปรตีนพืช ไม่มีน้ำตาล'],['fiber','ใยอาหารเพิ่มกาก']]},
- {label:'โปรตีน',words:['โปรตีน','กล้าม','ออกกำลัง','ฟิตเนส','ลดน้ำหนัก','มังสวิรัติ','วีแกน','protein','gym','เจ'],picks:[['allplant','โปรตีนพืช 3 ชนิด กรดอะมิโนจำเป็นครบ'],['allplantplus','ไม่มีน้ำตาลและแลคโตส เพิ่มดูอัลเปปไทด์']]},
- {label:'อ่อนเพลีย',words:['อ่อนเพลีย','เหนื่อย','พักผ่อนน้อย','กินผักน้อย','วิตามินรวม','พื้นฐาน','ทำงานหนัก','multivitamin','วิตามิน'],picks:[['doublex','วิตามินรวม เกลือแร่รวม และสารสกัดจากพืช'],['vitb','วิตามินบีครบ 8 ชนิด ราคาต่อวันต่ำ'],['begin','ซองเดียวต่อวัน ส่วนผสม 30 ชนิด'],['lingzhi','หลินจือออร์แกนิกกับซีบัคธอร์น']]},
- {label:'หัวใจ',words:['หัวใจ','หลอดเลือด','กระเทียม','garlic','heart','ไขมัน','โอเมก้า','น้ำมันปลา','omega','fish oil'],picks:[['omega','น้ำมันปลา EPA 286 มก. DHA 214 มก. ต่อแคปซูล'],['garlic','กระเทียมที่มีอัลลิซิน เม็ดเคลือบลดกลิ่น'],['bioc','วิตามินซีช่วยให้หลอดเลือดแข็งแรง']]},
- {label:'สมุนไพร',words:['สมุนไพร','หลินจือ','เห็ด','ธรรมชาติ','herbal','lingzhi'],picks:[['lingzhi','หลินจือออร์แกนิก เบต้ากลูแคน 7.98 มก.'],['garlic','กระเทียมอัดเม็ด'],['jujube','สารสกัดเมล็ดพุทราจีน']]},
- {label:'ผู้สูงอายุ',words:['ผู้สูงอายุ','สูงวัย','คนแก่','พ่อแม่','วัยทอง','อายุ','elderly'],picks:[['calmagd','ดูแลกระดูกด้วยแคลเซียมและวิตามินดี'],['d3k2','วิตามินดีและเคสำหรับกระดูก'],['allplant','โปรตีนย่อยง่ายจากพืช'],['doublex','วิตามินรวมพื้นฐาน']]}
+ {label:'กระดูก',words:['กระดูก','กระดูกพรุน','แคลเซียม','bone','calcium','ฟัน'],picks:[['calmagd','แคลเซียม แมกนีเซียม วิตามินดี ราคาต่อวันต่ำ'],['d3k2','วิตามินดีและเคช่วยคงสภาพปกติของกระดูก'],['ostkeeper','สารสกัดทับทิมและเมล็ดองุ่น'],['greentea','โปรตีนที่ให้แคลเซียม 600 มก. ต่อวัน']]},
+ {label:'ข้อเข่า',words:['ข้อ','เข่า','ข้อเข่า','joint','ปวดข้อ','กลูโคซามีน'],picks:[['glucosamine','ผลิตภัณฑ์ยาสำหรับข้อ ใช้ตามคำแนะนำเภสัชกร'],['calmagd','ดูแลกระดูกควบคู่'],['collagen','คอลลาเจนจากปลาทะเล 1,620 มก.']]},
+ {label:'ภูมิคุ้มกัน',words:['ภูมิ','ภูมิคุ้มกัน','หวัด','ป่วยบ่อย','immune','วิตามินซี','vitamin c','สังกะสี'],picks:[['bioc','วิตามินซีจากอะเซโรลา วันละเม็ดเดียว'],['herbalmix','วิตามินซีและสังกะสีสูง กับชะเอมเทศ ขมิ้นชัน'],['d3k2','วิตามินดีช่วยภูมิคุ้มกันทำงานปกติ'],['acerola','ชงดื่มได้ทั้งวัน มีวิตามินซีและสังกะสี']]},
+ {label:'ผิวสวย',words:['ผิว','สวย','ความงาม','ริ้วรอย','คอลลาเจน','skin','collagen','ผม','เล็บ','เซราไมด์'],picks:[['collagen','ไฮโดรไลซ์คอลลาเจน 1,620 มก. ต่อซอง'],['trumist','ไฟโตเซราไมด์จากข้าวสาลีและสารสกัดองุ่น'],['shn','คอลลาเจน ไบโอติน วิตามินซี สำหรับผิว ผม เล็บ'],['bioc','วิตามินซีช่วยสร้างคอลลาเจน']]},
+ {label:'ขับถ่าย',words:['ขับถ่าย','ท้องผูก','ไฟเบอร์','ใยอาหาร','fiber','ถ่าย'],picks:[['fiber','ใยอาหาร 7.5 กรัมต่อซอง ช่วยกระตุ้นการขับถ่าย'],['chewfiber','ใยอาหารจากพืช 11 ชนิด แบบเม็ดเคี้ยว'],['probiotic','โพรไบโอติก 5 สายพันธุ์กับอินูลิน']]},
+ {label:'ลำไส้',words:['ลำไส้','โพรไบโอติก','จุลินทรีย์','ท้อง','probiotic','gut','โพสต์ไบโอติก'],picks:[['probiotic','5 สายพันธุ์ พร้อมอินูลิน 1,000 มก.'],['probmind','18 พันล้านตัวต่อแคปซูล ไม่ต้องชง'],['postb','จุลินทรีย์ไม่มีชีวิตกับกีวีสีทอง'],['probw','สูตรผู้หญิง มีแครนเบอร์รี']]},
+ {label:'นอนหลับ',words:['นอน','หลับ','นอนไม่หลับ','ก่อนนอน','พักผ่อน','sleep','ผ่อนคลาย'],picks:[['jujube','สารสกัดเมล็ดพุทราจีนและ GABA รับประทานก่อนนอน'],['vitb','วิตามินบีครบ 8 ชนิด']]},
+ {label:'ความจำ',words:['ความจำ','สมอง','จำ','สมาธิ','อ่านหนังสือ','สอบ','brain','แป๊ะก๊วย'],picks:[['ginkgo','น้ำมันปลาทูน่าให้ DHA กับใบแป๊ะก๊วยและบัวบก'],['ginseng','โสมไซบีเรียกับแป๊ะก๊วย'],['concpack','รวมกิงโก พลัส ซิสแทนเช วิตามินบี ในซองเดียว'],['vitb','วิตามินบีครบ 8 ชนิด']]},
+ {label:'ลดน้ำหนัก',words:['ลดน้ำหนัก','คุมน้ำหนัก','อ้วน','ไดเอท','diet','แทนมื้อ','น้ำหนัก','หุ่น','แป้ง'],picks:[['bodykey','ทดแทนมื้ออาหาร สูตรน้ำตาลน้อยกว่า'],['calow','สารสกัดถั่วขาวและโปรตีนถั่วเหลือง'],['greent','สารสกัดชาเขียวและสาหร่ายสีน้ำตาล'],['cla','CLA จากน้ำมันดอกคำฝอย']]},
+ {label:'หัวใจ',words:['หัวใจ','หลอดเลือด','กระเทียม','garlic','heart','ไขมัน','โอเมก้า','น้ำมันปลา','omega','fish oil','coq10','คิวเท็น'],picks:[['omega','น้ำมันปลา EPA 286 มก. DHA 214 มก. ต่อแคปซูล'],['coq10','CoQ10 กับแอล-คาร์นิทีนและทอรีน'],['garlic','กระเทียมอัดเม็ด กลิ่นไม่แรง'],['vitalpack','รวมโอเมก้า กระเทียม CoQ10 ในซองเดียว']]},
+ {label:'ผู้หญิง',words:['ผู้หญิง','ประจำเดือน','วัยทอง','women','สตรี'],picks:[['primrose','น้ำมันอีฟนิงพริมโรสและโบราจ กับขิงและตังกุย'],['wpack','รวมพริมโรส แคล แมก ดี และผักผลไม้ในซองเดียว'],['probw','โพรไบโอติกสูตรผู้หญิงกับแครนเบอร์รี'],['spinach','แคลเซียมจากเปลือกหอยนางรมและกรดโฟลิก']]},
+ {label:'ดวงตา',words:['ตา','ดวงตา','สายตา','ลูทีน','eye','จอ'],picks:[['iblend','ลูทีนและซีแซนทีนจากดาวเรือง กับวิตามินเอ'],['fruitveg','มีลูทีนจากดาวเรือง'],['doublex','วิตามินรวมมีลูทีนและเบต้าแคโรทีน']]},
+ {label:'ผักผลไม้',words:['ผัก','ผลไม้','กินผักน้อย','ไฟโต','phyto'],picks:[['fruitveg','สารสกัดผักผลไม้หลายชนิดในเม็ดเดียว'],['begin','ส่วนผสมธรรมชาติ 30 ชนิด วันละซอง'],['chewfv','แบบเม็ดเคี้ยว ราคาต่อวันต่ำ'],['doublex','วิตามินรวมพร้อมสารสกัดจากพืช']]},
+ {label:'อ่อนเพลีย',words:['อ่อนเพลีย','เหนื่อย','พักผ่อนน้อย','วิตามินรวม','พื้นฐาน','ทำงานหนัก','multivitamin','วิตามิน','พลังงาน'],picks:[['doublex','วิตามินรวม เกลือแร่รวม และสารสกัดจากพืช'],['vitb','วิตามินบีครบ 8 ชนิด ราคาต่อวันต่ำสุดกลุ่ม'],['orange','ชงดื่ม วิตามินบี 8 ชนิดและวิตามินซี'],['coq10','CoQ10 สารสำคัญในการสร้างพลังงานระดับเซลล์']]},
+ {label:'โปรตีน',words:['โปรตีน','กล้าม','ออกกำลัง','ฟิตเนส','มังสวิรัติ','วีแกน','protein','gym','เจ','แพ้นม'],picks:[['ap900','โปรตีนพืช 35 กรัมต่อวัน ขนาดคุ้มกว่า'],['ap450','โปรตีนพืช ไม่มีแลคโตส'],['applus','ใช้น้อยกว่า วันละ 15 กรัม มีอโลเวรา'],['choco','รสช็อกโกแลต แคลเซียมสูง']]},
+ {label:'ผู้สูงอายุ',words:['ผู้สูงอายุ','สูงวัย','คนแก่','พ่อแม่','อายุ','elderly'],picks:[['calmagd','แคลเซียมและวิตามินดี'],['d3k2','วิตามินดีและเคสำหรับกระดูก'],['omega','โอเมก้า-3 วันละแคปซูล'],['ap450','โปรตีนพืชย่อยง่าย']]}
 ];
 
 const $=s=>document.querySelector(s);
-const fmt=(n,d=0)=>n.toLocaleString('th-TH',{minimumFractionDigits:d,maximumFractionDigits:d});
+const fmt=(n,d=0)=>Number(n).toLocaleString('th-TH',{minimumFractionDigits:d,maximumFractionDigits:d});
+const fmtN=n=>fmt(n,Math.abs(n%1)>1e-9?1:0);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const store={get(k,f){try{const v=localStorage.getItem(k);return v?JSON.parse(v):f}catch(e){return f}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
 
-let mode=store.get('nt-mode','member');
-let cat='all', sort='perday', query='', activeNeed=null;
-const SAMPLE={days:30,items:[{id:'doublex',dose:6},{id:'calmagd',dose:2},{id:'bioc',dose:1}]};
-let plan=store.get('nt-plan',SAMPLE);
+const SAMPLE={days:30,items:[{id:'doublex',dose:6},{id:'calmagd',dose:2},{id:'omega',dose:1}]};
+function cleanPlan(p){
+  const days=Math.min(730,Math.max(1,parseInt(p&&p.days)||30));
+  const seen=new Set();
+  const items=(p&&Array.isArray(p.items)?p.items:[]).filter(i=>i&&byId[i.id]&&!seen.has(i.id)&&seen.add(i.id)).map(i=>({id:i.id,dose:Math.max(0,Number(i.dose)||0)}));
+  return {days,items};
+}
+let mode=store.get('nt-mode','member')==='retail'?'retail':'member';
+let plan=cleanPlan(store.get('nt-plan2',SAMPLE));
+let cat='all',sort='perday',query='';
 
 const price=p=>mode==='member'?p.member:p.retail;
 const unitCost=p=>price(p)/p.units;
-const perDay=p=>p.dose?unitCost(p)*p.dose:unitCost(p);
+const perDay=p=>p.dose?unitCost(p)*p.dose:null;
+const daysPer=p=>p.dose?p.units/p.dose:null;
 
-/* ---------- need chips & categories ---------- */
+/* ---------- chips ---------- */
 const needWrap=$('#need-chips');
-NEEDS.forEach(n=>{const b=document.createElement('button');b.className='chip';b.textContent=n.label;b.dataset.need=n.label;b.setAttribute('aria-pressed','false');b.onclick=()=>{const on=$('#q').value.trim()===n.label;$('#q').value=on?'':n.label;onSearch()};needWrap.appendChild(b)});
+NEEDS.forEach(n=>{const b=document.createElement('button');b.className='chip';b.textContent=n.label;b.dataset.need=n.label;b.setAttribute('aria-pressed','false');b.onclick=()=>{$('#q').value=$('#q').value.trim()===n.label?'':n.label;onSearch()};needWrap.appendChild(b)});
 const catWrap=$('#cat-chips');
-[['all','ทั้งหมด'],...Object.entries(CATS)].forEach(([k,v])=>{const b=document.createElement('button');b.className='chip';b.textContent=v;b.dataset.cat=k;b.setAttribute('aria-pressed',k==='all');b.onclick=()=>{cat=k;catWrap.querySelectorAll('.chip').forEach(c=>c.setAttribute('aria-pressed',c.dataset.cat===k));renderGrid()};catWrap.appendChild(b)});
+const catCount=k=>k==='all'?P.length:P.filter(p=>p.cat===k).length;
+[['all','ทั้งหมด'],...Object.entries(CATS)].forEach(([k,v])=>{const b=document.createElement('button');b.className='chip';b.innerHTML=`${v}<small>${catCount(k)}</small>`;b.dataset.cat=k;b.setAttribute('aria-pressed',String(k==='all'));b.onclick=()=>{cat=k;catWrap.querySelectorAll('.chip').forEach(c=>c.setAttribute('aria-pressed',String(c.dataset.cat===k)));renderGrid(true)};catWrap.appendChild(b)});
 
-/* ---------- search / recommend ---------- */
+/* ---------- search + recommend ---------- */
 function matchNeeds(q){
   if(!q)return[];
   const ql=q.toLowerCase();
-  return NEEDS.filter(n=>n.words.some(w=>ql.includes(w.toLowerCase())||(ql.length>=2&&w.toLowerCase().startsWith(ql)))||n.label===q);
+  return NEEDS.filter(n=>n.label===q||n.words.some(w=>{w=w.toLowerCase();return ql.includes(w)||(ql.length>=2&&w.startsWith(ql))}));
 }
 function textMatch(p,q){
-  const hay=(p.name+' '+p.en+' '+p.props.join(' ')+' '+p.tags.join(' ')+' '+CATS[p.cat]).toLowerCase();
+  const hay=(p.name+' '+p.en+' '+p.sku+' '+p.props.join(' ')+' '+p.tags.join(' ')+' '+CATS[p.cat]).toLowerCase();
   return q.toLowerCase().split(/\s+/).filter(Boolean).every(t=>hay.includes(t));
+}
+function recommended(){
+  const needs=matchNeeds(query);const score={},why={};
+  needs.forEach(n=>n.picks.forEach(([id,r],i)=>{if(!byId[id])return;score[id]=(score[id]||0)+(10-i*2);if(!why[id])why[id]=r}));
+  if(query)P.forEach(p=>{if(textMatch(p,query)){score[p.id]=(score[p.id]||0)+3;if(!why[p.id])why[p.id]=p.props[0]}});
+  return {needs,list:Object.keys(score).sort((a,b)=>score[b]-score[a]).map(id=>({p:byId[id],why:why[id]}))};
+}
+const perDayLabel=p=>p.dose?`เฉลี่ย ฿${fmt(perDay(p),2)} / วัน`:`฿${fmt(unitCost(p),2)} / ${p.unit}`;
+function renderRec(){
+  const box=$('#rec');
+  if(!query){box.hidden=true;box.classList.remove('enter');return}
+  const {needs,list}=recommended();
+  const wasHidden=box.hidden;box.hidden=false;
+  if(wasHidden){box.classList.remove('enter');void box.offsetWidth;box.classList.add('enter')}
+  if(!list.length){box.innerHTML=`<div class="rec-head"><h2>ไม่พบผลิตภัณฑ์สำหรับ “<em>${esc(query)}</em>”</h2></div><p>ลองคำที่ใกล้เคียง เช่น กระดูก ผิว ภูมิคุ้มกัน ลำไส้ นอนหลับ หรือเลือกจากปุ่มด้านบน</p>`;return}
+  const label=needs.length?needs.map(n=>n.label).join(' · '):query;
+  const top=list.slice(0,4);
+  box.innerHTML=`<div class="rec-head"><h2>แนะนำสำหรับ “<em>${esc(label)}</em>”</h2><button class="add" id="add-rec" style="padding:8px 14px;font-size:14px">เพิ่ม ${top.length} รายการลงแผน</button></div>
+  <div class="rec-list">${top.map((r,i)=>`<div class="rec-item"><span class="rank">${i+1}</span><div style="min-width:0"><b>${r.p.name}</b><small>${esc(r.why)}</small><span class="rp">${perDayLabel(r.p)}</span></div></div>`).join('')}</div>`;
+  $('#add-rec').onclick=()=>{top.forEach(r=>addToPlan(r.p.id));planChanged(true);jumpPlanner()};
 }
 function onSearch(){
   query=$('#q').value.trim();
   const needs=matchNeeds(query);
-  needWrap.querySelectorAll('.chip').forEach(c=>c.setAttribute('aria-pressed',needs.some(n=>n.label===c.dataset.need)&&!!query));
-  renderRec(needs);renderGrid();
+  needWrap.querySelectorAll('.chip').forEach(c=>c.setAttribute('aria-pressed',String(!!query&&needs.some(n=>n.label===c.dataset.need))));
+  renderRec();renderGrid(true);
 }
-function recommended(needs){
-  const score={},why={};
-  needs.forEach(n=>n.picks.forEach(([id,r],i)=>{score[id]=(score[id]||0)+(10-i*2);if(!why[id])why[id]=r}));
-  if(query) P.forEach(p=>{if(textMatch(p,query)){score[p.id]=(score[p.id]||0)+3;if(!why[p.id])why[p.id]=p.props[0]}});
-  return Object.keys(score).sort((a,b)=>score[b]-score[a]).map(id=>({p:byId[id],why:why[id]}));
-}
-function renderRec(needs){
-  const box=$('#rec');
-  if(!query){box.hidden=true;return}
-  const list=recommended(needs);
-  box.hidden=false;
-  if(!list.length){
-    box.innerHTML=`<div class="rec-head"><h2>ไม่พบผลิตภัณฑ์สำหรับ “<em>${esc(query)}</em>”</h2></div><p style="margin:0;color:var(--muted)">ลองค้นด้วยคำที่ใกล้เคียง เช่น กระดูก ผิว ภูมิคุ้มกัน ขับถ่าย โปรตีน หรือเลือกจากปุ่มด้านบน</p>`;return;
-  }
-  const label=needs.length?needs.map(n=>n.label).join(' · '):query;
-  box.innerHTML=`<div class="rec-head"><h2>แนะนำสำหรับ “<em>${esc(label)}</em>”</h2><button class="add" id="add-rec" style="margin:0;padding:8px 14px;font-size:14px">เพิ่มทั้งหมดลงแผน</button></div>
-  <div class="rec-list">${list.slice(0,4).map((r,i)=>`<div class="rec-item"><span class="rank">${i+1}</span><div style="min-width:0"><b>${r.p.name}</b><small>${esc(r.why)}</small><span class="rp">${perDayLabel(r.p)}</span></div></div>`).join('')}</div>`;
-  $('#add-rec').onclick=()=>{list.slice(0,4).forEach(r=>addToPlan(r.p.id,false));renderAll();jumpPlanner()};
-}
-function esc(s){return s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
-function perDayLabel(p){return p.dose?`เฉลี่ย ฿${fmt(perDay(p),2)} / วัน`:`฿${fmt(unitCost(p),2)} / ${p.unit}`}
 
 /* ---------- catalog ---------- */
-function renderGrid(){
-  const needs=matchNeeds(query);
-  let ids=null;
-  if(query){ids=new Set(recommended(needs).map(r=>r.p.id))}
-  let list=P.filter(p=>(cat==='all'||p.cat===cat)&&(!ids||ids.has(p.id)));
-  const s={perday:(a,b)=>perDay(a)-perDay(b),'perday-desc':(a,b)=>perDay(b)-perDay(a),price:(a,b)=>price(a)-price(b),name:(a,b)=>a.name.localeCompare(b.name,'th')}[sort];
-  list.sort(s);
-  $('#count').textContent=`${list.length} รายการ`;
-  const inPlan=new Set(plan.items.map(i=>i.id));
-  $('#grid').innerHTML=list.length?list.map((p,i)=>{
-    const days=p.dose?p.units/p.dose:null;
-    return `<article class="card glass${ids?' hit':''}" style="animation-delay:${Math.min(i,8)*45}ms">
-      <div class="c-top"><div class="icon">${ICONS[p.form]}</div><div class="c-title"><div class="cat">${CATS[p.cat]}</div><h3>${p.name}</h3><div class="en">${p.en}</div><div class="pack">${p.pack}</div></div></div>
-      <div class="price-row">
-        <div><span class="lbl">ราคาสมาชิก</span><span class="val">฿${fmt(p.member)}</span></div>
-        <div><span class="lbl">ราคาขายปลีก</span><span class="val">${p.retailApprox?'≈ ':''}฿${fmt(p.retail)}</span></div>
-        <div class="per-day">${p.dose
-          ?`<span class="big">฿${fmt(perDay(p),2)} <small>/ วัน</small></span><span class="days">1 ชิ้นกินได้<br><b style="color:var(--ink);font-weight:500">${fmt(days,days%1?1:0)} วัน</b></span>`
-          :`<span class="big">฿${fmt(unitCost(p),2)} <small>/ ${p.unit}</small></span><span class="days">ต่อวันขึ้นกับ<br>ขนาดที่ใช้</span>`}</div>
-      </div>
-      <div class="when${OLD_PRICE.has(p.id)?' old':''}">ข้อมูลราคา ณ ${WHEN[p.id]||'—'}${OLD_PRICE.has(p.id)?' · ราคาตอนเปิดตัว อาจปรับแล้ว':''}</div>
-      <div class="dose"><strong>วิธีรับประทาน</strong> ${p.doseText}${p.doseFlag==='check'?' <span class="flag">ตรวจฉลาก</span>':''}</div>
-      <ul class="props">${p.props.map(x=>`<li>${x}</li>`).join('')}</ul>
+const SORTS={
+  perday:(a,b)=>(perDay(a)??1e9)-(perDay(b)??1e9),
+  'perday-desc':(a,b)=>(perDay(b)??-1)-(perDay(a)??-1),
+  price:(a,b)=>price(a)-price(b),
+  days:(a,b)=>(daysPer(b)??-1)-(daysPer(a)??-1),
+  name:(a,b)=>a.name.localeCompare(b.name,'th')
+};
+function cardHTML(p,i,animate,hit){
+  const d=daysPer(p);
+  return `<article class="card glass${animate?' enter':''}${hit?' hit':''}" style="${animate?`animation-delay:${Math.min(i,10)*40}ms`:''}">
+    <div class="c-top"><div class="icon">${ICONS[p.form]}</div><div class="c-title"><div class="cat">${CATS[p.cat]}</div><h3>${p.name}</h3><div class="en">${p.en}</div><div class="pack">${p.pack}</div></div></div>
+    <div class="price-row">
+      <div><span class="lbl">ราคาสมาชิก</span><span class="val">฿${fmt(p.member)}</span></div>
+      <div><span class="lbl">ราคาขายปลีก</span><span class="val">${p.retailApprox?'≈ ':''}฿${fmt(p.retail)}</span></div>
+      <div class="per-day">${p.dose
+        ?`<span class="big">฿${fmt(perDay(p),2)} <small>/ วัน</small></span><span class="days">1 ชิ้นกินได้<br><b>${fmtN(d)} วัน</b></span>`
+        :`<span class="big">฿${fmt(unitCost(p),2)} <small>/ ${p.unit}</small></span><span class="days">ต่อวันขึ้นกับ<br>ขนาดที่ใช้</span>`}</div>
+    </div>
+    <div class="dose"><strong>วิธีรับประทาน</strong>${p.doseText}${p.doseFlag==='check'?' <span class="flag">ตรวจฉลาก</span>':''}</div>
+    <ul class="props">${p.props.map(x=>`<li>${x}</li>`).join('')}</ul>
+    <div class="c-foot">
       <div class="tags">${p.tags.map(t=>`<span class="tag">${t}</span>`).join('')}</div>
-      <button class="add${inPlan.has(p.id)?' in':''}" data-add="${p.id}">${inPlan.has(p.id)?'อยู่ในแผนแล้ว ✓':'+ เพิ่มลงแผนการกิน'}</button>
-    </article>`}).join(''):`<div class="empty glass">ไม่มีผลิตภัณฑ์ในหมวดนี้ที่ตรงกับคำค้น</div>`;
+      <div class="src"><span>SKU ${p.sku}</span><a href="${p.url}" target="_blank" rel="noopener">ดูที่ amway.co.th ↗</a></div>
+      <button class="add" data-add="${p.id}"></button>
+    </div>
+  </article>`;
 }
-$('#grid').addEventListener('click',e=>{const b=e.target.closest('[data-add]');if(!b)return;const id=b.dataset.add;if(plan.items.some(i=>i.id===id)){plan.items=plan.items.filter(i=>i.id!==id)}else addToPlan(id,false);renderAll()});
+function renderGrid(animate){
+  const ids=query?new Set(recommended().list.map(r=>r.p.id)):null;
+  const list=P.filter(p=>(cat==='all'||p.cat===cat)&&(!ids||ids.has(p.id))).sort(SORTS[sort]);
+  $('#count').textContent=`${list.length} รายการ`;
+  $('#grid').innerHTML=list.length?list.map((p,i)=>cardHTML(p,i,animate,!!ids)).join(''):`<div class="empty glass">ไม่มีผลิตภัณฑ์ในหมวดนี้ที่ตรงกับคำค้น ลองเลือก “ทั้งหมด”</div>`;
+  syncButtons();
+}
+function syncButtons(){
+  const inPlan=new Set(plan.items.map(i=>i.id));
+  document.querySelectorAll('#grid [data-add]').forEach(b=>{const on=inPlan.has(b.dataset.add);b.classList.toggle('in',on);b.textContent=on?'อยู่ในแผนแล้ว ✓ (กดเพื่อนำออก)':'+ เพิ่มลงแผนการกิน';b.setAttribute('aria-pressed',String(on))});
+}
+$('#grid').addEventListener('click',e=>{const b=e.target.closest('[data-add]');if(!b)return;const id=b.dataset.add;if(plan.items.some(i=>i.id===id))plan.items=plan.items.filter(i=>i.id!==id);else addToPlan(id);planChanged(true)});
 
 /* ---------- planner ---------- */
-function addToPlan(id){if(plan.items.some(i=>i.id===id))return;const p=byId[id];plan.items.push({id,dose:p.dose||1})}
-function renderPlan(){
-  const days=Math.max(1,Math.min(730,parseInt(plan.days)||30));
-  $('#days').value=days;
-  document.querySelectorAll('[data-days]').forEach(b=>b.setAttribute('aria-pressed',+b.dataset.days===days));
+function addToPlan(id){if(!byId[id]||plan.items.some(i=>i.id===id))return;const p=byId[id];plan.items.push({id,dose:p.dose||1})}
+function calc(it){
+  const p=byId[it.id];const dose=Math.max(0,Number(it.dose)||0);const days=plan.days;
+  const need=dose*days, packs=need>0?Math.ceil(need/p.units-1e-9):0;
+  return {p,dose,need,packs,left:packs*p.units-need,avg:unitCost(p)*need,buy:packs*price(p),day:unitCost(p)*dose};
+}
+function rowOut(c){
+  return `<span>ต้องกินทั้งหมด<b>${fmtN(c.need)}</b>${c.p.unit}</span><span>ต้องซื้อ<b>${c.packs} ชิ้น</b>${c.packs?(c.left>0.05?`เหลือ ${fmtN(c.left)} ${c.p.unit}`:'พอดี'):'—'}</span><span>ต่อวัน<b>฿${fmt(c.day,2)}</b>รวม ฿${fmt(c.avg)}</span>`;
+}
+function rowFlag(c){
+  if(c.p.doseFlag==='user')return '<span class="flag">ใช้ตามฉลาก</span>';
+  if(c.p.dose&&c.dose!==c.p.dose)return `<span class="flag">แนะนำ ${fmtN(c.p.dose)} ${c.p.unit}</span>`;
+  return '';
+}
+function buildRows(animateNew){
   const rows=$('#rows');
-  if(!plan.items.length){rows.innerHTML='<div class="plan-empty">ยังไม่มีผลิตภัณฑ์ในแผน กด “เพิ่มลงแผนการกิน” ที่การ์ดสินค้า หรือค้นหาแล้วกด “เพิ่มทั้งหมดลงแผน”</div>'}
-  let tDay=0,tAvg=0,tBuy=0,tPacks=0,tUnits=0;
-  rows.innerHTML=plan.items.length?plan.items.map(it=>{
-    const p=byId[it.id];const dose=Math.max(0,+it.dose||0);
-    const need=dose*days, packs=Math.ceil(need/p.units-1e-9), avg=unitCost(p)*need, buy=packs*price(p), day=unitCost(p)*dose;
-    tDay+=day;tAvg+=avg;tBuy+=buy;tPacks+=packs;if(p.unit==='เม็ด'||p.unit==='แคปซูล')tUnits+=dose;
-    const left=packs*p.units-need;
-    return `<div class="row"><div class="row-h"><b>${p.name}</b><button class="x" data-del="${p.id}" aria-label="นำ ${p.name} ออกจากแผน">×</button></div>
-      <div class="row-ctl"><label for="d-${p.id}">วันละ</label><input class="num" id="d-${p.id}" data-dose="${p.id}" type="number" min="0" step="${p.form==='can'?0.5:1}" value="${dose}" inputmode="decimal"><span>${p.unit}</span>${p.doseFlag==='user'?'<span class="flag">ใช้ตามฉลากยา</span>':p.dose&&dose!==p.dose?`<span class="flag">ฉลาก ${p.dose} ${p.unit}</span>`:''}</div>
-      <div class="row-out"><span>ต้องกินทั้งหมด<b>${fmt(need,need%1?1:0)}</b>${p.unit}</span><span>ต้องซื้อ<b>${packs} ชิ้น</b>${left>0?`เหลือ ${fmt(left,left%1?1:0)}`:'พอดี'}</span><span>ต่อวัน<b>฿${fmt(day,2)}</b>รวม ฿${fmt(avg)}</span></div></div>`}).join(''):rows.innerHTML;
+  if(!plan.items.length){rows.innerHTML='<div class="plan-empty">ยังไม่มีผลิตภัณฑ์ในแผน กด “เพิ่มลงแผนการกิน” ที่การ์ดสินค้า หรือค้นหาแล้วกด “เพิ่มลงแผน”</div>';return}
+  const prev=new Set([...rows.querySelectorAll('.row')].map(r=>r.dataset.id));
+  rows.innerHTML=plan.items.map(it=>{const c=calc(it);const p=c.p;
+    return `<div class="row${animateNew&&!prev.has(p.id)?' enter':''}" data-id="${p.id}"><div class="row-h"><b>${p.name}</b><button class="x" data-del="${p.id}" aria-label="นำ ${p.name} ออกจากแผน">×</button></div>
+      <div class="row-ctl"><label for="d-${p.id}">วันละ</label><input class="num" id="d-${p.id}" data-dose="${p.id}" type="number" min="0" max="50" step="${p.form==='can'?0.5:1}" value="${c.dose}" inputmode="decimal"><span>${p.unit}</span><span class="rflag">${rowFlag(c)}</span></div>
+      <div class="row-out">${rowOut(c)}</div></div>`}).join('');
+}
+function updateRow(id){
+  const row=document.querySelector(`.row[data-id="${id}"]`);if(!row)return;
+  const c=calc(plan.items.find(i=>i.id===id));
+  row.querySelector('.row-out').innerHTML=rowOut(c);row.querySelector('.rflag').innerHTML=rowFlag(c);
+}
+function renderSum(){
+  let tDay=0,tAvg=0,tBuy=0,tPacks=0,tPills=0;
+  plan.items.forEach(it=>{const c=calc(it);tDay+=c.day;tAvg+=c.avg;tBuy+=c.buy;tPacks+=c.packs;if(['เม็ด','แคปซูล'].includes(c.p.unit))tPills+=c.dose});
   $('#sum').innerHTML=`<div class="hero"><span>ค่าใช้จ่ายเฉลี่ยต่อวัน (${mode==='member'?'ราคาสมาชิก':'ราคาขายปลีก'})</span><b>฿${fmt(tDay,2)}</b></div>
-    <div><span>เฉลี่ยตลอด ${days} วัน</span><b>฿${fmt(tAvg)}</b></div>
+    <div><span>เฉลี่ยตลอด ${plan.days} วัน</span><b>฿${fmt(tAvg)}</b></div>
     <div><span>จ่ายจริง (ซื้อเต็มชิ้น)</span><b>฿${fmt(tBuy)}</b></div>
     <div><span>ต่อเดือน (30 วัน)</span><b>฿${fmt(tDay*30)}</b></div>
     <div><span>จำนวนชิ้นที่ต้องซื้อ</span><b>${tPacks} ชิ้น</b></div>
-    <div class="hero" style="grid-column:1/-1"><span>เม็ด/แคปซูลที่กินต่อวันรวม</span><b style="font-size:20px;color:var(--ink)">${fmt(tUnits,tUnits%1?1:0)} เม็ด</b></div>`;
+    <div class="hero"><span>เม็ด/แคปซูลที่กินต่อวันรวม</span><b style="font-size:20px;color:var(--ink)">${fmtN(tPills)} เม็ด</b></div>`;
   $('#fab-n').textContent=plan.items.length;
-  store.set('nt-plan',plan);
+  document.querySelectorAll('[data-days]').forEach(b=>b.setAttribute('aria-pressed',String(+b.dataset.days===plan.days)));
+  store.set('nt-plan2',plan);
 }
-$('#rows').addEventListener('input',e=>{const id=e.target.dataset.dose;if(!id)return;const it=plan.items.find(i=>i.id===id);it.dose=e.target.value;clearTimeout(window._t);window._t=setTimeout(()=>{const f=document.activeElement&&document.activeElement.id;renderPlan();if(f){const el=document.getElementById(f);if(el){el.focus();const v=el.value;el.value='';el.value=v}}},350)});
-$('#rows').addEventListener('click',e=>{const id=e.target.dataset.del;if(!id)return;plan.items=plan.items.filter(i=>i.id!==id);renderAll()});
-$('#days').addEventListener('change',e=>{plan.days=e.target.value;renderPlan()});
-document.querySelectorAll('[data-days]').forEach(b=>b.onclick=()=>{plan.days=+b.dataset.days;renderPlan()});
-$('#clear').onclick=()=>{plan={days:plan.days,items:[]};renderAll()};
-$('#sample').onclick=()=>{plan=JSON.parse(JSON.stringify(SAMPLE));renderAll()};
+function planChanged(animateNew){buildRows(animateNew);renderSum();syncButtons()}
+$('#rows').addEventListener('input',e=>{
+  const id=e.target.dataset.dose;if(!id)return;
+  const it=plan.items.find(i=>i.id===id);if(!it)return;
+  const v=parseFloat(e.target.value);it.dose=isFinite(v)?Math.min(50,Math.max(0,v)):0;
+  updateRow(id);renderSum();
+});
+$('#rows').addEventListener('click',e=>{const id=e.target.dataset.del;if(!id)return;plan.items=plan.items.filter(i=>i.id!==id);planChanged(false)});
+const daysEl=$('#days');
+function setDays(v,writeBack){
+  const n=parseInt(v);if(!isFinite(n)||n<1){if(writeBack)daysEl.value=plan.days;return}
+  plan.days=Math.min(730,n);if(writeBack||n>730)daysEl.value=plan.days;
+  plan.items.forEach(i=>updateRow(i.id));renderSum();
+}
+daysEl.addEventListener('input',()=>setDays(daysEl.value,false));
+daysEl.addEventListener('change',()=>setDays(daysEl.value,true));
+document.querySelectorAll('[data-days]').forEach(b=>b.onclick=()=>setDays(b.dataset.days,true));
+$('#clear').onclick=()=>{plan.items=[];planChanged(false)};
+$('#sample').onclick=()=>{plan=cleanPlan(SAMPLE);daysEl.value=plan.days;planChanged(true)};
 
 /* ---------- misc ---------- */
-function setMode(m){mode=m;store.set('nt-mode',m);$('#mode-member').setAttribute('aria-pressed',m==='member');$('#mode-retail').setAttribute('aria-pressed',m==='retail');renderAll();onSearch()}
+function setMode(m){
+  mode=m;store.set('nt-mode',m);
+  $('#mode-member').setAttribute('aria-pressed',String(m==='member'));$('#mode-retail').setAttribute('aria-pressed',String(m==='retail'));
+  renderGrid(false);if(query)renderRec();plan.items.forEach(i=>updateRow(i.id));renderSum();
+}
 $('#mode-member').onclick=()=>setMode('member');$('#mode-retail').onclick=()=>setMode('retail');
-$('#sort').onchange=e=>{sort=e.target.value;renderGrid()};
-$('#q').addEventListener('input',()=>{clearTimeout(window._s);window._s=setTimeout(onSearch,150)});
+$('#sort').onchange=e=>{sort=e.target.value;renderGrid(true)};
+let st;$('#q').addEventListener('input',()=>{clearTimeout(st);st=setTimeout(onSearch,160)});
 function jumpPlanner(){if(window.innerWidth<1100)$('#planner').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'})}
 $('#fab').onclick=jumpPlanner;
-function renderAll(){renderGrid();renderPlan()}
-setMode(mode);
+
+daysEl.value=plan.days;
+$('#mode-member').setAttribute('aria-pressed',String(mode==='member'));$('#mode-retail').setAttribute('aria-pressed',String(mode==='retail'));
+renderGrid(true);buildRows(false);renderSum();
 </script>
 
 </body>
